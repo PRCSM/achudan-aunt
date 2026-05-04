@@ -129,14 +129,23 @@ export default function CoursesPage() {
                         </AnimatePresence>
                       </div>
 
-                      <Button 
-                        variant={actualIndex === 2 ? "primary" : "secondary"} 
-                        fullWidth 
-                        href={`https://wa.me/${WHATSAPP_CONFIG.number}?text=I am interested in the ${course.title} course.`}
-                        className={actualIndex !== 2 ? "border-border text-text-primary hover:border-primary hover:text-primary" : ""}
-                      >
-                        Enquire on WhatsApp
-                      </Button>
+                      <div className="flex flex-col sm:flex-row gap-3">
+                        <Button 
+                          variant={actualIndex === 2 ? "primary" : "secondary"} 
+                          fullWidth 
+                          href={`https://wa.me/${WHATSAPP_CONFIG.number}?text=I am interested in the ${course.title} course.`}
+                          className={actualIndex !== 2 ? "border-border text-text-primary hover:border-primary hover:text-primary" : ""}
+                        >
+                          WhatsApp
+                        </Button>
+                        <Button 
+                          variant="ghost"
+                          fullWidth 
+                          href={`/courses/${course.id}`}
+                        >
+                          Details →
+                        </Button>
+                      </div>
                     </div>
                   </Card>
                 </motion.div>
@@ -215,14 +224,23 @@ export default function CoursesPage() {
                         </AnimatePresence>
                       </div>
 
-                      <Button 
-                        variant={actualIndex === 2 ? "primary" : "secondary"} 
-                        fullWidth 
-                        href={`https://wa.me/${WHATSAPP_CONFIG.number}?text=I am interested in the ${course.title} course.`}
-                        className={actualIndex !== 2 ? "border-border text-text-primary hover:border-primary hover:text-primary" : ""}
-                      >
-                        Enquire on WhatsApp
-                      </Button>
+                      <div className="flex flex-col sm:flex-row gap-3">
+                        <Button 
+                          variant={actualIndex === 2 ? "primary" : "secondary"} 
+                          fullWidth 
+                          href={`https://wa.me/${WHATSAPP_CONFIG.number}?text=I am interested in the ${course.title} course.`}
+                          className={actualIndex !== 2 ? "border-border text-text-primary hover:border-primary hover:text-primary" : ""}
+                        >
+                          WhatsApp
+                        </Button>
+                        <Button 
+                          variant="ghost"
+                          fullWidth 
+                          href={`/courses/${course.id}`}
+                        >
+                          Details →
+                        </Button>
+                      </div>
                     </div>
                   </Card>
                 </motion.div>
