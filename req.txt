@@ -1,0 +1,25 @@
+1. Videos Page
+The original site has a page for videos (titled "Presentation on Multiplication Trick"), but there are no actual videos or links to be found.
+
+Needed: YouTube/Vimeo links, or raw MP4 files of the math tricks and presentations they want to showcase.
+2. Courses (Basic, Intermediate, Advanced, Teacher Training)
+The current service pages only have 1-2 sentences each (e.g., "Simple math tricks with basic mathematical operations"). To make proper, high-converting course pages, we need:
+
+Syllabus: A bulleted list of topics covered in each level.
+Logistics: Exact course duration (the current FAQ just says "depends on the selected program").
+Pricing: How much does each tier cost?
+Requirements: Are there specific age groups for basic vs intermediate?
+3. Blog Page
+The current blog page just has three continuous paragraphs of text.
+
+Needed: If these are meant to be separate articles, we need titles for each, the author's name, and ideally some thumbnail images to make a proper blog feed layout. If they plan to write more, we need to know if they want a CMS (like Sanity) to upload future blogs themselves.
+4. "Math Corner"
+There is a link to "Math Corner" in their navigation.
+
+Needed: What exactly belongs here? The text mentions "worksheets with more than 1000 practice sums" and "Vedic math-related games." We need the actual PDF worksheets to link to, or the URLs of the interactive games.
+5. Contact & Socials
+Needed: Real links for their social media (Instagram, Facebook, YouTube, Twitter) to replace the placeholders in our new footer. We also need their official contact email and physical address (if they have an offline center).
+6. Media & Branding
+Needed: High-resolution photos of the teacher, students, or classes for the "About Us" page. (Right now, we are relying on 3D illustrations, but real photos build more trust).
+Once you get this information (especially the video links and course details), we can start building out those dynamic pages! Should we start scaffolding the layout for the Courses page using placeholder text in the meantime?
+

@@ -76,7 +76,7 @@ export default function TestimonialsSection() {
   return (
     <Section
       id="testimonials"
-      title="What Parents Say"
+      title={<>What <span className="text-primary">Students</span> Say!</>}
       subtitle="Real stories from families who've experienced the VedaGanitham difference."
     >
       {/* Desktop — 3 cards */}
@@ -119,7 +119,7 @@ export default function TestimonialsSection() {
 
                   {/* Author */}
                   <div className="mt-6 pt-4 border-t border-border">
-                    <div className="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center font-medium text-sm mb-2">
+                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-accent text-white flex items-center justify-center font-heading font-bold text-lg mb-3 shadow-sm">
                       {t.name.charAt(0)}
                     </div>
                     <p className="font-medium text-sm text-text-primary">
@@ -194,7 +194,7 @@ export default function TestimonialsSection() {
                 &ldquo;{testimonials[current].quote}&rdquo;
               </p>
               <div className="mt-6 pt-4 border-t border-border">
-                <div className="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center font-medium text-sm mb-2">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-accent text-white flex items-center justify-center font-heading font-bold text-lg mb-3 shadow-sm">
                   {testimonials[current].name.charAt(0)}
                 </div>
                 <p className="font-medium text-sm text-text-primary">

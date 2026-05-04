@@ -11,18 +11,18 @@ import { fadeInUp, staggerContainer } from "@/lib/animations";
 
 const courseIcons = ["📐", "🧮", "🎯", "🎓"];
 const courseColors = [
-  "bg-primary/10 text-primary",
-  "bg-secondary/10 text-secondary",
-  "bg-accent/20 text-accent-dark",
-  "bg-primary/10 text-primary",
+  "bg-accent text-text-primary", // Yellow
+  "bg-[#A8E6CF] text-text-primary", // Green
+  "bg-primary text-white", // Orange
+  "bg-[#FFB3B3] text-text-primary", // Pink
 ];
 
 export default function CourseSection() {
   return (
     <Section
       id="courses"
-      title="Our Courses"
-      subtitle="From beginner to master — structured programs designed to unlock your mathematical potential."
+      title={<>We Provide The Best <span className="text-primary">Courses</span></>}
+      subtitle="Join our carefully crafted Vedic Mathematics courses, designed to fit every age and skill level."
     >
       <motion.div
         className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
@@ -36,7 +36,7 @@ export default function CourseSection() {
             <Card className="h-full flex flex-col" padding="lg">
               {/* Icon */}
               <div
-                className={`w-12 h-12 rounded-2xl flex items-center justify-center text-2xl mb-5 ${courseColors[i]}`}
+                className={`w-12 h-12 rounded-2xl flex items-center justify-center text-2xl mb-5 shadow-sm transition-transform hover:scale-110 ${courseColors[i]}`}
               >
                 {courseIcons[i]}
               </div>

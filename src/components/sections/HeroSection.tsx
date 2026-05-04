@@ -4,120 +4,109 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { Button, Badge } from "@/components/ui";
 import {
-  fadeInUp,
   staggerContainerSlow,
   floatAnimation,
-  gentleRotate,
+  slideInLeft,
+  slideInRight
 } from "@/lib/animations";
 
 /* ============================================
    ✦ HERO SECTION
-   Center-aligned with serif heading,
-   2 CTA buttons, math-themed background.
+   Two-column split layout with 3D illustration
    ============================================ */
-
-const mathSymbols = [
-  { symbol: "∑", x: "10%", y: "20%", size: "text-4xl", delay: 0 },
-  { symbol: "π", x: "85%", y: "15%", size: "text-5xl", delay: 0.5 },
-  { symbol: "√", x: "8%", y: "70%", size: "text-3xl", delay: 1 },
-  { symbol: "∞", x: "90%", y: "65%", size: "text-4xl", delay: 0.3 },
-  { symbol: "÷", x: "75%", y: "80%", size: "text-3xl", delay: 0.8 },
-  { symbol: "×", x: "20%", y: "85%", size: "text-2xl", delay: 1.2 },
-  { symbol: "∆", x: "50%", y: "10%", size: "text-3xl", delay: 0.6 },
-  { symbol: "θ", x: "65%", y: "30%", size: "text-2xl", delay: 0.9 },
-];
 
 export default function HeroSection() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Image */}
-      <div className="absolute inset-0 z-0">
-        <Image
-          src="/images/hero-bg.png"
-          alt=""
-          fill
-          className="object-cover opacity-30"
-          priority
-          aria-hidden="true"
-        />
-        {/* Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-bg-main/80 via-bg-main/60 to-bg-main" />
+    <section className="relative min-h-screen flex items-center pt-24 pb-16 overflow-hidden bg-white">
+      {/* Decorative Dots */}
+      <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
+        <div className="absolute top-[20%] right-[10%] w-6 h-6 rounded-full bg-primary/15" />
+        <div className="absolute bottom-[30%] right-[40%] w-4 h-4 rounded-full bg-accent/20" />
+        <div className="absolute top-[40%] left-[5%] w-3 h-3 rounded-full bg-primary/10" />
       </div>
 
-      {/* Floating Math Symbols */}
-      <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
-        {mathSymbols.map((item, i) => (
-          <motion.span
-            key={i}
-            className={`absolute ${item.size} text-primary/10 font-heading select-none`}
-            style={{ left: item.x, top: item.y }}
+      <div className="mx-auto w-full max-w-[1200px] px-5 relative z-10 flex flex-col md:flex-row items-center justify-between gap-12">
+        {/* Left Content */}
+        <motion.div
+          className="w-full md:w-[55%] flex flex-col items-start text-left"
+          variants={staggerContainerSlow}
+          initial="hidden"
+          animate="visible"
+        >
+          <motion.div variants={slideInLeft}>
+            <Badge variant="primary" className="mb-6">✨ Ancient Wisdom, Modern Speed</Badge>
+          </motion.div>
+
+          <motion.h1
+            variants={slideInLeft}
+            className="font-heading text-[clamp(2.5rem,5vw,3.5rem)] leading-[1.15] text-text-primary mb-6"
+          >
+            Master Mathematics
+            <br />
+            the <span className="text-primary">Vedic Way</span>
+          </motion.h1>
+
+          <motion.p
+            variants={slideInLeft}
+            className="text-text-secondary text-base md:text-lg max-w-[480px] leading-relaxed mb-8"
+          >
+            Discover ancient Indian techniques that simplify complex calculations.
+            Build speed, accuracy, and confidence in mathematics.
+          </motion.p>
+
+          <motion.div
+            variants={slideInLeft}
+            className="flex flex-col sm:flex-row items-center gap-4 mb-12"
+          >
+            <Button variant="primary" size="lg" href="#demo-form">
+              Book Free Demo
+            </Button>
+            <Button variant="ghost" size="lg" href="#courses" className="!font-medium">
+              ▶ Explore Courses
+            </Button>
+          </motion.div>
+
+          {/* Trust indicators */}
+          <motion.div
+            variants={slideInLeft}
+            className="flex flex-wrap items-center gap-4 sm:gap-6 text-text-muted text-[13px] font-medium"
+          >
+            <span className="flex items-center gap-1.5">
+              <span className="text-accent text-base">★</span> 500+ Students
+            </span>
+            <span className="w-px h-4 bg-border hidden sm:block" />
+            <span className="flex items-center gap-1.5">
+              <span className="text-accent text-base">★</span> 4.9 Rating
+            </span>
+            <span className="w-px h-4 bg-border hidden sm:block" />
+            <span className="flex items-center gap-1.5">
+              <span className="text-accent text-base">★</span> Expert Teachers
+            </span>
+          </motion.div>
+        </motion.div>
+
+        {/* Right Illustration */}
+        <motion.div
+          className="w-full md:w-[45%] relative mt-12 md:mt-0"
+          variants={slideInRight}
+          initial="hidden"
+          animate="visible"
+        >
+          <motion.div
             variants={floatAnimation}
             animate="animate"
-            transition={{ delay: item.delay }}
+            className="relative w-full aspect-square max-w-[500px] mx-auto"
           >
-            {item.symbol}
-          </motion.span>
-        ))}
+            <Image
+              src="/images/hero_illustration.png"
+              alt="Students learning Vedic Mathematics"
+              fill
+              className="object-contain drop-shadow-xl"
+              priority
+            />
+          </motion.div>
+        </motion.div>
       </div>
-
-      {/* Content */}
-      <motion.div
-        className="relative z-10 mx-auto max-w-[800px] px-5 text-center pt-24 pb-16"
-        variants={staggerContainerSlow}
-        initial="hidden"
-        animate="visible"
-      >
-        <motion.div variants={fadeInUp}>
-          <Badge variant="primary">✨ Ancient Wisdom, Modern Speed</Badge>
-        </motion.div>
-
-        <motion.h1
-          variants={fadeInUp}
-          className="font-heading text-[clamp(2.5rem,6vw,4rem)] leading-[1.1] text-text-primary mt-6"
-        >
-          Master Mathematics
-          <br />
-          <span className="text-primary">the Vedic Way</span>
-        </motion.h1>
-
-        <motion.p
-          variants={fadeInUp}
-          className="mt-6 text-lg md:text-xl text-text-secondary max-w-xl mx-auto leading-relaxed"
-        >
-          Discover ancient Indian techniques that simplify complex calculations.
-          Build speed, accuracy, and confidence in mathematics.
-        </motion.p>
-
-        <motion.div
-          variants={fadeInUp}
-          className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4"
-        >
-          <Button variant="primary" size="lg" href="#demo-form">
-            Book Free Demo
-          </Button>
-          <Button variant="secondary" size="lg" href="#courses">
-            Explore Courses
-          </Button>
-        </motion.div>
-
-        {/* Trust indicators */}
-        <motion.div
-          variants={fadeInUp}
-          className="mt-12 flex items-center justify-center gap-8 text-text-muted text-sm"
-        >
-          <span className="flex items-center gap-1.5">
-            <span className="text-accent text-base">★</span> 500+ Students
-          </span>
-          <span className="hidden sm:block w-px h-4 bg-border" />
-          <span className="flex items-center gap-1.5">
-            <span className="text-accent text-base">★</span> 4.9 Rating
-          </span>
-          <span className="hidden sm:block w-px h-4 bg-border" />
-          <span className="flex items-center gap-1.5">
-            <span className="text-accent text-base">★</span> Expert Teachers
-          </span>
-        </motion.div>
-      </motion.div>
     </section>
   );
 }

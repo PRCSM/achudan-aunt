@@ -23,11 +23,11 @@ interface ButtonProps extends Omit<HTMLMotionProps<"button">, "ref"> {
 
 const variantClasses: Record<ButtonVariant, string> = {
   primary:
-    "bg-primary text-white hover:bg-primary-hover shadow-md hover:shadow-lg",
+    "bg-primary text-white hover:bg-primary-hover",
   secondary:
-    "bg-transparent text-text-primary border border-border hover:border-border-hover hover:bg-bg-soft",
+    "bg-transparent text-primary border-[1.5px] border-primary hover:bg-primary-light",
   ghost:
-    "bg-transparent text-text-secondary hover:text-text-primary hover:bg-bg-soft",
+    "bg-transparent text-text-secondary hover:text-primary hover:bg-bg-soft",
 };
 
 const sizeClasses: Record<ButtonSize, string> = {
@@ -50,7 +50,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     ref
   ) => {
     const baseClasses =
-      "inline-flex items-center justify-center gap-2 rounded-full font-medium transition-colors duration-250 cursor-pointer select-none";
+      "inline-flex items-center justify-center gap-2 rounded-full font-heading font-semibold transition-all duration-250 cursor-pointer select-none";
 
     const classes = [
       baseClasses,

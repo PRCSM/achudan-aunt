@@ -30,15 +30,15 @@ export default function Navbar() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-white/90 backdrop-blur-xl shadow-sm border-b border-border/50"
-          : "bg-transparent"
+          ? "bg-white/95 backdrop-blur-xl shadow-md border-b border-border"
+          : "bg-white border-b border-border/50"
       }`}
     >
       <div className="mx-auto w-full max-w-[1200px] px-5 flex items-center justify-between h-16 md:h-20">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 group">
           <span className="text-2xl">✦</span>
-          <span className="font-heading text-xl md:text-2xl text-text-primary tracking-tight">
+          <span className="font-heading font-bold text-xl md:text-2xl text-text-primary tracking-tight">
             VedaGanitham
           </span>
         </Link>
@@ -49,7 +49,7 @@ export default function Navbar() {
             <Link
               key={link.href}
               href={link.href}
-              className="text-sm font-medium text-text-secondary hover:text-text-primary transition-colors duration-200"
+              className="text-sm font-medium text-text-secondary hover:text-primary transition-colors duration-200"
             >
               {link.label}
             </Link>
@@ -106,7 +106,7 @@ export default function Navbar() {
                   key={link.href}
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
-                  className="text-base font-medium text-text-secondary hover:text-text-primary transition-colors py-2"
+                  className="text-base font-medium text-text-secondary hover:text-primary transition-colors py-2"
                 >
                   {link.label}
                 </Link>

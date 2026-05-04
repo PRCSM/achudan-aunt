@@ -7,24 +7,25 @@
 /* ---------- Design Tokens (CSS Variables) ---------- */
 :root {
   /* — Primary Colors — */
-  --primary: #ff6b2b;
-  --primary-hover: #e55a1f;
-  --primary-light: #fff1eb;
-  --secondary: #7c3aed;
-  --secondary-hover: #6d28d9;
-  --secondary-light: #f3eeff;
-  --accent: #ffd93d;
+  --primary: #FF6B2B;
+  --primary-hover: #E55A1F;
+  --primary-light: #FFF1EB;
+  --secondary: #FFD93D;
+  --secondary-hover: #f0c800;
+  --secondary-light: #FFF4EE;
+  --accent: #FFD93D;
   --accent-dark: #f0c800;
 
   /* — Neutral Colors — */
-  --bg-main: #fafaf9;
-  --bg-soft: #f5f5f4;
+  --bg-main: #FFFFFF;
+  --bg-soft: #FFF4EE;
+  --bg-section: #FAFAF9;
   --white: #ffffff;
-  --text-primary: #0f172a;
-  --text-secondary: #64748b;
-  --text-muted: #94a3b8;
-  --border: #e5e7eb;
-  --border-hover: #d1d5db;
+  --text-primary: #1A1A2E;
+  --text-secondary: #64748B;
+  --text-muted: #94A3B8;
+  --border: #E5E7EB;
+  --border-hover: #D1D5DB;
 
   /* — Typography Scale — */
   --font-hero: 4rem;       /* 64px */
@@ -48,18 +49,18 @@
 
   /* — Border Radius — */
   --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
-  --radius-xl: 24px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
   --radius-full: 999px;
 
   /* — Shadows — */
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.05);
+  --shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.08);
   --shadow-xl: 0 20px 60px rgba(0, 0, 0, 0.08);
-  --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.05);
-  --shadow-card-hover: 0 20px 40px rgba(0, 0, 0, 0.1);
+  --shadow-card: 0 4px 16px rgba(0, 0, 0, 0.05);
+  --shadow-card-hover: 0 12px 32px rgba(0, 0, 0, 0.1);
 
   /* — Transitions — */
   --transition-fast: 150ms ease;
@@ -87,8 +88,9 @@
   --color-border-hover: var(--border-hover);
 
   /* Fonts */
-  --font-heading: "DM Serif Display", serif;
+  --font-heading: "Poppins", sans-serif;
   --font-body: "Inter", sans-serif;
+  --font-footer: "Space Grotesk", sans-serif;
 
   /* Radius */
   --radius-sm: var(--radius-sm);
@@ -128,7 +130,7 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
   line-height: 1.2;
   color: var(--text-primary);
-  font-weight: 400; /* DM Serif Display is naturally bold */
+  font-weight: 700; /* Poppins needs explicit weight */
 }
 
 h1 { font-size: var(--font-h1); }

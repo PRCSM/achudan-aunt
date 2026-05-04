@@ -18,12 +18,13 @@ interface CardProps {
   /** Make entire card a link */
   href?: string;
   /** Padding override */
-  padding?: "sm" | "md" | "lg";
+  padding?: "none" | "sm" | "md" | "lg";
 }
 
 const paddingClasses = {
+  none: "p-0",
   sm: "p-4",
-  md: "p-6",
+  md: "p-7", // 28px
   lg: "p-8",
 };
 
@@ -34,7 +35,7 @@ export default function Card({
   href,
   padding = "md",
 }: CardProps) {
-  const baseClasses = `bg-white rounded-3xl ${paddingClasses[padding]} shadow-card`;
+  const baseClasses = `bg-white rounded-[20px] border border-border ${paddingClasses[padding]} shadow-card transition-all duration-250`;
 
   if (hoverable) {
     const Component = href ? motion.a : motion.div;

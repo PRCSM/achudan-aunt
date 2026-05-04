@@ -15,8 +15,8 @@ interface SectionProps {
   children: ReactNode;
   className?: string;
   id?: string;
-  /** Section title — rendered as serif heading */
-  title?: string;
+  /** Section title — can include HTML for orange accent */
+  title?: ReactNode;
   /** Section subtitle */
   subtitle?: string;
   /** Whether this section has a soft background */
