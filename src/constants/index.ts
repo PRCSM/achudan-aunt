@@ -8,21 +8,22 @@ export const SITE_CONFIG = {
   description:
     "Discover the ancient power of Vedic Mathematics. Simplify calculations, sharpen your mind, and excel in math with our expertly designed courses.",
   url: "https://vedaganitham.com",
+  email: "suprajamadhu1215@gmail.com",
 } as const;
 
 export const NAV_LINKS = [
   { label: "Home", href: "/" },
   { label: "Courses", href: "/courses" },
   { label: "Videos", href: "/videos" },
-  { label: "Blog", href: "/blog" },
-  { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
+  { label: "Math Corner", href: "/math-corner" },
+  { label: "About Us", href: "/about" },
+  { label: "Contact", href: "/#demo-form" },
 ] as const;
 
 export const WHATSAPP_CONFIG = {
   /** Replace with actual WhatsApp number (with country code, no +) */
   number: "919876543210",
-  defaultMessage: "Hi, I am interested in VedaGanitham courses. Can I know more?",
+  defaultMessage: "Hi, I am interested in VedaGanitham courses. Can I book a Free Demo?",
 } as const;
 
 export const COURSE_TIERS = [

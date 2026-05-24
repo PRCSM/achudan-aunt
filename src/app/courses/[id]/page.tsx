@@ -1,14 +1,53 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useEffect, useState, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { notFound } from "next/navigation";
 import { COURSE_TIERS, WHATSAPP_CONFIG } from "@/constants";
 import { Button, Badge } from "@/components/ui";
 
 /* ============================================
+   ✦ ALGEBRAIC FORMULA MORPH
+   ============================================ */
+function FormulaMorph() {
+  const [step, setStep] = useState(0);
+  const steps = [
+    "99 × 99",
+    "(100 - 1)²",
+    "100² - 2(100)(1) + 1²",
+    "10000 - 200 + 1",
+    "9801"
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setStep((prev) => (prev + 1) % steps.length);
+    }, 2500);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="bg-bg-soft/70 border border-primary/10 rounded-2xl p-6 text-center max-w-sm mx-auto my-8 shadow-sm">
+      <p className="text-[10px] text-text-muted font-bold uppercase tracking-wider mb-2">Vedic Method Preview</p>
+      <div className="h-16 flex items-center justify-center font-heading text-lg md:text-xl font-extrabold text-primary">
+        <AnimatePresence mode="wait">
+          <motion.span
+            key={step}
+            initial={{ opacity: 0, scale: 0.9, filter: "blur(4px)" }}
+            animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+            exit={{ opacity: 0, scale: 1.1, filter: "blur(4px)" }}
+            transition={{ duration: 0.4 }}
+          >
+            {steps[step]}
+          </motion.span>
+        </AnimatePresence>
+      </div>
+    </div>
+  );
+}
+
+/* ============================================
    ✦ COURSE DETAIL PAGE
-   Immersive, storytelling UI with scroll snapping
    ============================================ */
 
 export default function CourseDetailPage({ params }: { params: Promise<{ id: string }> }) {
@@ -30,6 +69,26 @@ export default function CourseDetailPage({ params }: { params: Promise<{ id: str
 
   if (!course) {
     return notFound();
+  }
+
+  // Select level-specific testimonial
+  let courseReview = {
+    name: "Kishore G",
+    location: "UAE",
+    quote: "My calculation speed has improved drastically. Now I can solve long equations mentally during school exams without getting stuck."
+  };
+  if (resolvedParams.id === "basic") {
+    courseReview = {
+      name: "Samruthi B",
+      location: "Chennai",
+      quote: "I love the interactive quizzes and games. They help me remember formulas easily. Doing math does not feel like homework anymore."
+    };
+  } else if (resolvedParams.id === "intermediate") {
+    courseReview = {
+      name: "Chetna",
+      location: "UAE",
+      quote: "VedaGanitham is like magic tricks for math! Learning how to simplify large multiplication has made math my favorite subject."
+    };
   }
 
   if (!mounted) return null;
@@ -74,7 +133,7 @@ export default function CourseDetailPage({ params }: { params: Promise<{ id: str
             >
               Start Learning Now
             </Button>
-            <span className="text-sm text-text-muted font-medium mt-4 sm:mt-0 sm:ml-4">
+            <span className="text-sm text-text-muted font-medium mt-4 sm:mt-0 sm:ml-4 animate-bounce">
               Scroll to explore ↓
             </span>
           </div>
@@ -88,17 +147,26 @@ export default function CourseDetailPage({ params }: { params: Promise<{ id: str
         <div className="max-w-4xl mx-auto text-center">
           <StoryText 
             text="Stop memorizing formulas. Start seeing the patterns." 
-            className="font-heading text-4xl md:text-6xl font-bold leading-tight mb-10"
+            className="font-heading text-4xl md:text-6xl font-bold leading-tight mb-6"
           />
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1, duration: 0.8 }}
+            transition={{ delay: 0.8, duration: 0.8 }}
             viewport={{ once: true }}
-            className="text-lg md:text-2xl text-text-secondary leading-relaxed max-w-3xl mx-auto"
+            className="text-lg md:text-2xl text-text-secondary leading-relaxed max-w-3xl mx-auto mb-6"
           >
             {course.description}
           </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 1.2, duration: 0.5 }}
+            viewport={{ once: true }}
+          >
+            <FormulaMorph />
+          </motion.div>
         </div>
       </section>
 
@@ -140,7 +208,7 @@ export default function CourseDetailPage({ params }: { params: Promise<{ id: str
       </section>
 
       {/* ====================
-          SCENE 4: COURSE STRUCTURE
+          SCENE 4: COURSE STRUCTURE (Roadmap scroll animation)
           ==================== */}
       <section className="h-screen w-full snap-start flex items-center justify-center px-5 bg-[#fafafa]">
         <div className="max-w-4xl mx-auto w-full flex flex-col md:flex-row items-center gap-16">
@@ -151,27 +219,44 @@ export default function CourseDetailPage({ params }: { params: Promise<{ id: str
             viewport={{ once: true }}
             className="flex-1 w-full"
           >
-            <div className={`aspect-square rounded-full bg-gradient-to-tr ${course.color} opacity-10 blur-3xl absolute -z-10`} />
             <h2 className="font-heading text-4xl md:text-5xl font-bold mb-6">The Journey</h2>
             <p className="text-text-secondary text-lg mb-8 leading-relaxed">
               Designed for optimal retention. We break down complex logic into bite-sized, digestible modules over {course.duration}.
             </p>
             
-            <div className="space-y-6 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-border before:to-transparent">
-              {['Foundation', 'Technique Mastery', 'Speed Drills', 'Final Assessment'].map((step, idx) => (
+            {/* ✦ Dynamic Vertical Roadmap line ✦ */}
+            <div className="space-y-6 relative">
+              {/* Dynamic filled line overlay */}
+              <div className="absolute left-5 top-0 bottom-0 w-0.5 bg-border -translate-x-px md:left-1/2 md:translate-x-0" />
+              
+              <motion.div 
+                className="absolute left-5 top-0 w-0.5 bg-primary -translate-x-px md:left-1/2 md:translate-x-0 origin-top shadow-sm"
+                initial={{ height: 0 }}
+                whileInView={{ height: "100%" }}
+                transition={{ duration: 1.5, ease: "easeInOut" }}
+                viewport={{ once: true }}
+              />
+
+              {['Foundation Class', 'Technique Mastery', 'Speed Drills', 'Assessment & Certification'].map((step, idx) => (
                 <motion.div 
                   key={step}
                   initial={{ opacity: 0, x: 20 }}
                   whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ delay: idx * 0.15 }}
+                  transition={{ delay: idx * 0.2 }}
                   viewport={{ once: true }}
-                  className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active"
+                  className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group"
                 >
-                  <div className="flex items-center justify-center w-10 h-10 rounded-full border-4 border-white bg-primary text-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2">
+                  {/* Glowing Milestone node */}
+                  <motion.div 
+                    className="flex items-center justify-center w-10 h-10 rounded-full border-4 border-white bg-border text-white z-10 shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 transition-colors duration-500"
+                    whileInView={{ backgroundColor: "#FF6B2B", borderColor: "#FFF1EB" }}
+                    viewport={{ once: true, margin: "-100px" }}
+                  >
                     <span className="text-sm font-bold">{idx + 1}</span>
-                  </div>
-                  <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-4 rounded-xl border border-border bg-white shadow-sm">
-                    <h3 className="font-bold text-text-primary">{step}</h3>
+                  </motion.div>
+                  
+                  <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-4 rounded-xl border border-border bg-white shadow-sm hover:border-primary/20 transition-all duration-300">
+                    <h3 className="font-bold text-text-primary text-sm md:text-base">{step}</h3>
                   </div>
                 </motion.div>
               ))}
@@ -181,7 +266,7 @@ export default function CourseDetailPage({ params }: { params: Promise<{ id: str
       </section>
 
       {/* ====================
-          SCENE 5: OUTCOMES & CTA
+          SCENE 5: OUTCOMES & TESTIMONIAL
           ==================== */}
       <section className="h-screen w-full snap-start flex flex-col items-center justify-center px-5 relative overflow-hidden bg-white text-center">
         {/* Decorative Elements */}
@@ -193,11 +278,27 @@ export default function CourseDetailPage({ params }: { params: Promise<{ id: str
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="max-w-3xl mx-auto z-10"
+          className="max-w-3xl mx-auto z-10 w-full"
         >
-          <Badge variant="primary" className="mb-8">Your Transformation</Badge>
+          <Badge variant="primary" className="mb-6">Student Success</Badge>
           
-          <h2 className="font-heading text-5xl md:text-6xl font-bold tracking-tight mb-8 text-text-primary">
+          {/* ✦ Dynamic testomonial snippet matching course level ✦ */}
+          <div className="bg-bg-soft/60 border border-primary/5 rounded-2xl p-6 md:p-8 max-w-xl mx-auto mb-10 text-left shadow-sm">
+            <p className="italic text-text-primary text-sm md:text-base mb-4 leading-relaxed">
+              &ldquo;{courseReview.quote}&rdquo;
+            </p>
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm">
+                {courseReview.name.charAt(0)}
+              </div>
+              <div>
+                <p className="font-bold text-text-primary text-sm">{courseReview.name}</p>
+                <p className="text-xs text-text-muted font-medium">{courseReview.location}</p>
+              </div>
+            </div>
+          </div>
+
+          <h2 className="font-heading text-4xl md:text-5xl font-bold tracking-tight mb-8 text-text-primary leading-tight">
             Ready to change how you <br />
             <span className="text-primary relative">
               think about math?
@@ -207,16 +308,12 @@ export default function CourseDetailPage({ params }: { params: Promise<{ id: str
             </span>
           </h2>
           
-          <p className="text-xl text-text-secondary mb-12">
-            Join thousands of students who have already unlocked their mental calculation superpowers with the {course.title}.
-          </p>
-          
-          <div className="flex flex-col sm:flex-row justify-center gap-6">
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
             <Button 
               size="lg" 
               href={`https://wa.me/${WHATSAPP_CONFIG.number}?text=I am interested in enrolling in the ${course.title} course.`}
             >
-              Enroll Now via WhatsApp
+              Enroll via WhatsApp
             </Button>
             <Button size="lg" variant="ghost" href="/courses">
               Back to all courses
@@ -243,7 +340,7 @@ function StoryText({ text, className }: { text: string; className?: string }) {
     hidden: { opacity: 0 },
     visible: (i = 1) => ({
       opacity: 1,
-      transition: { staggerChildren: 0.15, delayChildren: 0.1 * i },
+      transition: { staggerChildren: 0.12, delayChildren: 0.1 * i },
     }),
   };
 

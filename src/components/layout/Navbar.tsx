@@ -15,9 +15,11 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    // Listen to the snap scroll container, not window
+    const container = document.querySelector("main");
+    const handleScroll = () => setScrolled((container?.scrollTop ?? 0) > 20);
+    container?.addEventListener("scroll", handleScroll, { passive: true });
+    return () => container?.removeEventListener("scroll", handleScroll);
   }, []);
 
   // Lock body scroll when mobile menu is open

@@ -4,6 +4,7 @@ import { useState, type FormEvent } from "react";
 import { motion } from "framer-motion";
 import { Section, Button, Input } from "@/components/ui";
 import { fadeInUp, fadeInLeft, fadeInRight } from "@/lib/animations";
+import Footer from "@/components/layout/Footer";
 
 /* ============================================
    ✦ DEMO FORM SECTION — Lead capture
@@ -34,7 +35,8 @@ export default function DemoFormSection() {
   };
 
   return (
-    <Section id="demo-form" soft>
+    <div className="snap-start min-h-screen w-full overflow-y-auto bg-bg-soft">
+      <Section id="demo-form" soft className="w-full flex items-center justify-center relative overflow-hidden bg-bg-soft">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
         {/* Left — copy */}
         <motion.div
@@ -179,5 +181,7 @@ export default function DemoFormSection() {
         </motion.div>
       </div>
     </Section>
+      <Footer />
+    </div>
   );
 }

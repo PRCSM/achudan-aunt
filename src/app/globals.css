@@ -179,3 +179,16 @@ a {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--text-muted);
 }
+
+/* ---------- Smooth Scrolling Global & Chalkboard Styling ---------- */
+html {
+  scroll-behavior: smooth;
+}
+
+.bg-chalkboard-texture {
+  background-image: 
+    radial-gradient(circle at 50% 50%, rgba(255,255,255,0.06) 0%, transparent 80%),
+    linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+  background-size: 100% 100%, 20px 20px, 20px 20px;
+}

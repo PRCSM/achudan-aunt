@@ -76,17 +76,42 @@ export default function Footer() {
             <div className="md:col-span-2">
               <h4 className="font-bold text-lg mb-5">Company</h4>
               <ul className="space-y-3">
-                {footerLinks.Company.map((link) => (
-                  <li key={link.label} className="flex items-center gap-2">
-                    <span className="text-text-muted text-xs">•</span>
-                    <Link
-                      href={link.href}
-                      className="text-text-secondary hover:text-primary text-sm font-medium transition-colors duration-200"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
+                <li className="flex items-center gap-2">
+                  <span className="text-text-muted text-xs">•</span>
+                  <Link
+                    href="/#about"
+                    className="text-text-secondary hover:text-primary text-sm font-medium transition-colors duration-200"
+                  >
+                    About Us
+                  </Link>
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="text-text-muted text-xs">•</span>
+                  <Link
+                    href="/#testimonials"
+                    className="text-text-secondary hover:text-primary text-sm font-medium transition-colors duration-200"
+                  >
+                    Testimonials
+                  </Link>
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="text-text-muted text-xs">•</span>
+                  <Link
+                    href="/#math-corner"
+                    className="text-text-secondary hover:text-primary text-sm font-medium transition-colors duration-200"
+                  >
+                    Math Corner
+                  </Link>
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="text-text-muted text-xs">•</span>
+                  <Link
+                    href="/#demo-form"
+                    className="text-text-secondary hover:text-primary text-sm font-medium transition-colors duration-200"
+                  >
+                    Book Demo
+                  </Link>
+                </li>
               </ul>
             </div>
 
@@ -101,7 +126,7 @@ export default function Footer() {
               
               <div className="mb-8">
                 <p className="text-sm font-bold mb-1">Email :</p>
-                <p className="text-sm text-text-secondary">hello@vedaganitham.com</p>
+                <p className="text-sm text-text-secondary">{SITE_CONFIG.email}</p>
               </div>
               
               <h4 className="font-bold text-lg mb-4">Follow Us</h4>

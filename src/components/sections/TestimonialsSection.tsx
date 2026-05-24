@@ -1,60 +1,79 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Section, Card } from "@/components/ui";
 import { fadeInUp } from "@/lib/animations";
 
 /* ============================================
-   ✦ TESTIMONIALS SECTION — Carousel
+   ✦ REAL TESTIMONIALS DATA
    ============================================ */
 
 const testimonials = [
   {
     id: 1,
-    name: "Priya Sharma",
-    grade: "Class 8",
+    name: "Kishore G",
+    grade: "Student (UAE)",
     rating: 5,
     quote:
-      "My daughter's confidence in math has skyrocketed! She now solves multiplication problems mentally that used to take her minutes with pen and paper.",
+      "My calculation speed has improved drastically. Now I can solve long equations mentally during school exams without getting stuck. It gives me so much confidence!",
   },
   {
     id: 2,
-    name: "Rajesh Kumar",
-    grade: "Class 10",
+    name: "Chetna",
+    grade: "Student (UAE)",
     rating: 5,
     quote:
-      "VedaGanitham transformed how my son approaches math. The Vedic techniques are not just tricks — they build deep mathematical understanding.",
+      "VedaGanitham is like magic tricks for math! Learning how to simplify large multiplication and division has made math my favorite subject.",
   },
   {
     id: 3,
-    name: "Anitha Rajan",
-    grade: "Class 6",
+    name: "Samruthi B",
+    grade: "Student (Chennai)",
     rating: 5,
     quote:
-      "The teachers are incredibly patient and engaging. My child actually looks forward to math class now. That alone is worth everything!",
-  },
-  {
-    id: 4,
-    name: "Vikram Patel",
-    grade: "Class 12",
-    rating: 4,
-    quote:
-      "As a competitive exam aspirant, Vedic Math techniques have given me a significant edge. I can solve problems 3x faster now.",
-  },
-  {
-    id: 5,
-    name: "Meena Iyer",
-    grade: "Teacher Training",
-    rating: 5,
-    quote:
-      "I took the teacher training course and now teach Vedic Math at my school. The curriculum is well-structured and the support is excellent.",
+      "I love the interactive quizzes and games. They help me remember formulas easily. Doing math does not feel like homework anymore.",
   },
 ];
 
+const driftingSnippets = [
+  { text: "Math became fun!", top: "15%", left: "5%", delay: 0 },
+  { text: "Now solves mentally!", top: "25%", right: "8%", delay: 2 },
+  { text: "Huge speed improvement!", top: "70%", left: "10%", delay: 1.5 },
+  { text: "4x calculation speed!", top: "60%", right: "6%", delay: 3 },
+  { text: "No more math fear!", top: "80%", left: "45%", delay: 0.5 }
+];
+
+/* ============================================
+   ✦ TYPING EFFECT WRAPPER
+   ============================================ */
+function TypingQuote({ text }: { text: string }) {
+  const [displayed, setDisplayed] = useState("");
+
+  useEffect(() => {
+    setDisplayed("");
+    let i = 0;
+    const interval = setInterval(() => {
+      setDisplayed((prev) => prev + text.charAt(i));
+      i++;
+      if (i >= text.length) {
+        clearInterval(interval);
+      }
+    }, 12); // Fast typing speed
+    return () => clearInterval(interval);
+  }, [text]);
+
+  return (
+    <span className="relative">
+      &ldquo;{displayed}
+      <span className="inline-block w-1 h-3.5 bg-primary ml-0.5 animate-pulse" />
+      &rdquo;
+    </span>
+  );
+}
+
 export default function TestimonialsSection() {
   const [current, setCurrent] = useState(0);
-  const visibleCount = 3;
 
   const next = useCallback(() => {
     setCurrent((prev) => (prev + 1) % testimonials.length);
@@ -64,47 +83,66 @@ export default function TestimonialsSection() {
     setCurrent((prev) => (prev - 1 + testimonials.length) % testimonials.length);
   }, []);
 
-  // Get visible testimonials (circular)
-  const getVisible = () => {
-    const items = [];
-    for (let i = 0; i < visibleCount; i++) {
-      items.push(testimonials[(current + i) % testimonials.length]);
-    }
-    return items;
-  };
-
   return (
     <Section
       id="testimonials"
       title={<>What <span className="text-primary">Students</span> Say!</>}
       subtitle="Real stories from families who've experienced the VedaGanitham difference."
+      className="relative overflow-hidden bg-white scroll-mt-20 snap-start min-h-screen w-full flex items-center justify-center"
     >
-      {/* Desktop — 3 cards */}
-      <div className="hidden md:block">
+      {/* ✦ Floating Review Snippets Background ✦ */}
+      <div className="absolute inset-0 z-0 pointer-events-none select-none overflow-hidden" aria-hidden="true">
+        {driftingSnippets.map((snippet, idx) => (
+          <motion.div
+            key={idx}
+            className="absolute bg-primary-light/40 border border-primary/5 text-primary/40 font-heading text-xs md:text-sm font-semibold py-1.5 px-3.5 rounded-full select-none"
+            style={{ 
+              top: snippet.top, 
+              left: snippet.left, 
+              right: snippet.right
+            }}
+            animate={{
+              y: [0, -12, 0],
+              opacity: [0.15, 0.35, 0.15],
+              scale: [0.95, 1, 0.95]
+            }}
+            transition={{
+              duration: 7 + idx * 2,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: snippet.delay
+            }}
+          >
+            {snippet.text}
+          </motion.div>
+        ))}
+      </div>
+
+      <div className="relative z-10 max-w-2xl mx-auto">
         <motion.div
-          className="grid grid-cols-3 gap-6"
           variants={fadeInUp}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
+          className="relative"
         >
-          <AnimatePresence mode="popLayout">
-            {getVisible().map((t) => (
-              <motion.div
-                key={t.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.35 }}
-              >
-                <Card hoverable={false} padding="lg" className="h-full flex flex-col">
-                  {/* Stars */}
-                  <div className="flex gap-1 mb-4">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={current}
+              initial={{ opacity: 0, scale: 0.98 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.98 }}
+              transition={{ duration: 0.3 }}
+            >
+              <Card hoverable={false} padding="lg" className="border border-border/80 shadow-lg text-center bg-white/70 backdrop-blur-sm min-h-[300px] flex flex-col justify-between">
+                <div>
+                  {/* Rating Stars */}
+                  <div className="flex justify-center gap-1 mb-6">
                     {Array.from({ length: 5 }).map((_, i) => (
                       <span
                         key={i}
-                        className={`text-sm ${
-                          i < t.rating ? "text-accent" : "text-border"
+                        className={`text-lg ${
+                          i < testimonials[current].rating ? "text-accent" : "text-border"
                         }`}
                       >
                         ★
@@ -112,130 +150,61 @@ export default function TestimonialsSection() {
                     ))}
                   </div>
 
-                  {/* Quote */}
-                  <p className="text-sm text-text-secondary leading-relaxed flex-1">
-                    &ldquo;{t.quote}&rdquo;
+                  {/* Typing Quote */}
+                  <p className="font-heading text-lg md:text-xl text-text-primary italic leading-relaxed px-2 md:px-6">
+                    <TypingQuote text={testimonials[current].quote} />
                   </p>
-
-                  {/* Author */}
-                  <div className="mt-6 pt-4 border-t border-border">
-                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-accent text-white flex items-center justify-center font-heading font-bold text-lg mb-3 shadow-sm">
-                      {t.name.charAt(0)}
-                    </div>
-                    <p className="font-medium text-sm text-text-primary">
-                      {t.name}
-                    </p>
-                    <p className="text-xs text-text-muted">{t.grade}</p>
-                  </div>
-                </Card>
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </motion.div>
-
-        {/* Nav buttons */}
-        <div className="flex justify-center gap-3 mt-8">
-          <button
-            onClick={prev}
-            className="w-10 h-10 rounded-full border border-border flex items-center justify-center text-text-secondary hover:border-primary hover:text-primary transition-colors cursor-pointer"
-            aria-label="Previous testimonials"
-          >
-            ←
-          </button>
-          {/* Dots */}
-          <div className="flex items-center gap-2">
-            {testimonials.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => setCurrent(i)}
-                className={`w-2 h-2 rounded-full transition-all duration-300 cursor-pointer ${
-                  i === current ? "bg-primary w-6" : "bg-border"
-                }`}
-                aria-label={`Go to testimonial ${i + 1}`}
-              />
-            ))}
-          </div>
-          <button
-            onClick={next}
-            className="w-10 h-10 rounded-full border border-border flex items-center justify-center text-text-secondary hover:border-primary hover:text-primary transition-colors cursor-pointer"
-            aria-label="Next testimonials"
-          >
-            →
-          </button>
-        </div>
-      </div>
-
-      {/* Mobile — single card with swipe */}
-      <div className="md:hidden">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={testimonials[current].id}
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -50 }}
-            transition={{ duration: 0.3 }}
-          >
-            <Card hoverable={false} padding="lg">
-              <div className="flex gap-1 mb-4">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <span
-                    key={i}
-                    className={`text-sm ${
-                      i < testimonials[current].rating
-                        ? "text-accent"
-                        : "text-border"
-                    }`}
-                  >
-                    ★
-                  </span>
-                ))}
-              </div>
-              <p className="text-sm text-text-secondary leading-relaxed">
-                &ldquo;{testimonials[current].quote}&rdquo;
-              </p>
-              <div className="mt-6 pt-4 border-t border-border">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-accent text-white flex items-center justify-center font-heading font-bold text-lg mb-3 shadow-sm">
-                  {testimonials[current].name.charAt(0)}
                 </div>
-                <p className="font-medium text-sm text-text-primary">
-                  {testimonials[current].name}
-                </p>
-                <p className="text-xs text-text-muted">
-                  {testimonials[current].grade}
-                </p>
-              </div>
-            </Card>
-          </motion.div>
-        </AnimatePresence>
 
-        <div className="flex justify-center gap-3 mt-6">
-          <button
-            onClick={prev}
-            className="w-10 h-10 rounded-full border border-border flex items-center justify-center text-text-secondary hover:border-primary hover:text-primary transition-colors cursor-pointer"
-            aria-label="Previous"
-          >
-            ←
-          </button>
-          <div className="flex items-center gap-2">
-            {testimonials.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => setCurrent(i)}
-                className={`w-2 h-2 rounded-full transition-all duration-300 cursor-pointer ${
-                  i === current ? "bg-primary w-6" : "bg-border"
-                }`}
-                aria-label={`Go to testimonial ${i + 1}`}
-              />
-            ))}
+                {/* Author Info */}
+                <div className="mt-8 pt-6 border-t border-border/60 flex flex-col items-center">
+                  <div className="w-14 h-14 rounded-full bg-gradient-to-br from-primary to-accent text-white flex items-center justify-center font-heading font-extrabold text-xl mb-3 shadow-md">
+                    {testimonials[current].name.charAt(0)}
+                  </div>
+                  <p className="font-heading font-bold text-base text-text-primary">
+                    {testimonials[current].name}
+                  </p>
+                  <p className="text-xs text-text-muted font-medium uppercase tracking-wider mt-0.5">
+                    {testimonials[current].grade}
+                  </p>
+                </div>
+              </Card>
+            </motion.div>
+          </AnimatePresence>
+
+          {/* Nav Controls */}
+          <div className="flex justify-center items-center gap-6 mt-8">
+            <button
+              onClick={prev}
+              className="w-11 h-11 rounded-full border border-border bg-white flex items-center justify-center text-text-secondary hover:border-primary hover:text-primary hover:shadow-md transition-all duration-200 cursor-pointer"
+              aria-label="Previous testimonial"
+            >
+              ←
+            </button>
+            
+            {/* Dots */}
+            <div className="flex items-center gap-2">
+              {testimonials.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setCurrent(i)}
+                  className={`w-2.5 h-2.5 rounded-full transition-all duration-300 cursor-pointer ${
+                    i === current ? "bg-primary w-6" : "bg-border hover:bg-text-muted"
+                  }`}
+                  aria-label={`Go to testimonial ${i + 1}`}
+                />
+              ))}
+            </div>
+
+            <button
+              onClick={next}
+              className="w-11 h-11 rounded-full border border-border bg-white flex items-center justify-center text-text-secondary hover:border-primary hover:text-primary hover:shadow-md transition-all duration-200 cursor-pointer"
+              aria-label="Next testimonial"
+            >
+              →
+            </button>
           </div>
-          <button
-            onClick={next}
-            className="w-10 h-10 rounded-full border border-border flex items-center justify-center text-text-secondary hover:border-primary hover:text-primary transition-colors cursor-pointer"
-            aria-label="Next"
-          >
-            →
-          </button>
-        </div>
+        </motion.div>
       </div>
     </Section>
   );

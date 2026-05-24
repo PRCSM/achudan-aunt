@@ -1,12 +1,16 @@
 import type { Metadata } from "next";
 import { Poppins, Inter, Space_Grotesk } from "next/font/google";
 import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
 import WhatsAppButton from "@/components/layout/WhatsAppButton";
 import "./globals.css";
 
 /* ============================================
    ✦ VEDAGANITHAM — ROOT LAYOUT ✦
+   Snap-scroll architecture:
+   - Navbar is fixed (z-50)
+   - WhatsApp button is fixed (z-50)
+   - Body is overflow-hidden so the snap container controls scrolling
+   - Footer is embedded inside the last snap scene (DemoFormSection)
    ============================================ */
 
 const poppins = Poppins({
@@ -64,12 +68,10 @@ export default function RootLayout({
       lang="en"
       className={`${poppins.variable} ${inter.variable} ${spaceGrotesk.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col font-body text-text-primary bg-bg-main">
+      {/* overflow-hidden keeps the snap container as the sole scroller */}
+      <body className="h-full overflow-hidden font-body text-text-primary bg-bg-main">
         <Navbar />
-        <main className="flex-1">
-          {children}
-        </main>
-        <Footer />
+        {children}
         <WhatsAppButton />
       </body>
     </html>

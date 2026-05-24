@@ -24,7 +24,7 @@ export default function CoursesPage() {
   };
 
   return (
-    <>
+    <main className="h-full w-full overflow-y-auto bg-white">
       {/* --- HERO BANNER --- */}
       <section className="bg-bg-soft pt-32 pb-20 px-5">
         <div className="max-w-[1200px] mx-auto text-center">
@@ -307,6 +307,6 @@ export default function CoursesPage() {
 
       {/* --- CTA SECTION --- */}
       <CTASection />
-    </>
+    </main>
   );
 }

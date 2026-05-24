@@ -6,7 +6,7 @@ import { COURSE_TIERS } from "@/constants";
 import { fadeInUp, staggerContainer } from "@/lib/animations";
 
 /* ============================================
-   ✦ COURSE SECTION — 4 tier cards
+   ✦ COURSE SECTION — 4 tier cards with dynamic routing
    ============================================ */
 
 const courseIcons = ["📐", "🧮", "🎯", "🎓"];
@@ -23,36 +23,60 @@ export default function CourseSection() {
       id="courses"
       title={<>We Provide The Best <span className="text-primary">Courses</span></>}
       subtitle="Join our carefully crafted Vedic Mathematics courses, designed to fit every age and skill level."
+      className="snap-start min-h-screen w-full flex items-center justify-center relative overflow-hidden bg-bg-section"
     >
       <motion.div
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl w-full mx-auto px-4 z-10"
         variants={staggerContainer}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
       >
         {COURSE_TIERS.map((course, i) => (
-          <motion.div key={course.id} variants={fadeInUp}>
-            <Card className="h-full flex flex-col" padding="lg">
-              {/* Icon */}
-              <div
-                className={`w-12 h-12 rounded-2xl flex items-center justify-center text-2xl mb-5 shadow-sm transition-transform hover:scale-110 ${courseColors[i]}`}
-              >
-                {courseIcons[i]}
+          <motion.div 
+            key={course.id} 
+            variants={fadeInUp}
+            whileHover={{ y: -8 }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            className="h-full"
+          >
+            <Card className="h-full flex flex-col justify-between border border-border/80 hover:border-primary/20 hover:shadow-xl transition-shadow duration-300 bg-white" padding="lg">
+              <div>
+                {/* Icon */}
+                <div
+                  className={`w-12 h-12 rounded-2xl flex items-center justify-center text-2xl mb-5 shadow-sm transition-transform hover:scale-110 ${courseColors[i]}`}
+                >
+                  {courseIcons[i]}
+                </div>
+
+                {/* Content */}
+                <h3 className="font-heading text-lg font-bold text-text-primary mb-2">
+                  {course.title}
+                </h3>
+                <p className="text-xs text-text-secondary leading-relaxed">
+                  {course.description}
+                </p>
+
+                {/* Syllabus Highlights Preview */}
+                <ul className="text-[11px] text-text-secondary space-y-2 mt-4 border-t border-slate-100 pt-4">
+                  {course.highlights.slice(0, 3).map((item, idx) => (
+                    <li key={idx} className="flex items-start gap-1.5 leading-snug">
+                      <span className="text-primary text-[10px] mt-0.5 font-bold">✦</span> 
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
 
-              {/* Content */}
-              <h3 className="font-heading text-xl text-text-primary mb-2">
-                {course.title}
-              </h3>
-              <p className="text-sm text-text-secondary leading-relaxed flex-1">
-                {course.description}
-              </p>
-
-              {/* CTA */}
+              {/* Dynamic Learn More Link */}
               <div className="mt-6">
-                <Button variant="ghost" size="sm" href="#demo-form" className="!px-0 text-primary hover:text-primary-hover">
-                  Learn More →
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  href={`/courses/${course.id}`} 
+                  className="!px-0 text-primary hover:text-primary-hover font-bold flex items-center gap-1 group/btn"
+                >
+                  Learn More <span className="transform group-hover/btn:translate-x-1 transition-transform">&rarr;</span>
                 </Button>
               </div>
             </Card>
