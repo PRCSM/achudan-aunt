@@ -35,8 +35,9 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://vedaganitham.com"),
   title: {
-    default: "VedaGanitham — Vedic Mathematics Learning Platform",
+    default: "VedaGanitham — Traditional Indian Mathematics",
     template: "%s | VedaGanitham",
   },
   description:
@@ -46,15 +47,22 @@ export const metadata: Metadata = {
     "Vedic Maths",
     "VedaGanitham",
     "Mental Math",
+    "Traditional Indian Mathematics",
     "Math Courses",
     "Speed Math",
   ],
+  icons: {
+    icon: "/images/logo-icon.png",
+    apple: "/images/logo-icon.png",
+    shortcut: "/images/logo-icon.png",
+  },
   openGraph: {
-    title: "VedaGanitham — Vedic Mathematics Learning Platform",
+    title: "VedaGanitham — Traditional Indian Mathematics",
     description:
       "Simplify calculations, sharpen your mind, and excel in math with Vedic Mathematics.",
     siteName: "VedaGanitham",
     type: "website",
+    images: [{ url: "/images/logo-full.png", width: 1200, height: 630, alt: "VedaGanitham" }],
   },
 };
 
