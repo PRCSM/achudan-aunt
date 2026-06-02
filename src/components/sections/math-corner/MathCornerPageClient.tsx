@@ -13,7 +13,7 @@ import MC6CTA from "./MC6CTA";
 
 export default function MathCornerPageClient() {
   return (
-    <main className="h-full w-full overflow-y-auto bg-white">
+    <main className="h-[100dvh] w-full overflow-y-auto bg-white">
       <MC1Hero />
       <MC2Tricks />
       <MC3Games />

@@ -173,14 +173,14 @@ export default function CourseDetailPage({ params }: { params: Promise<{ id: str
       {/* ====================
           SCENE 3: WHAT YOU'LL LEARN
           ==================== */}
-      <section className="h-screen w-full snap-start flex flex-col justify-center px-5 relative overflow-hidden bg-white">
+      <section className="min-h-screen w-full snap-start flex flex-col justify-center px-5 py-24 relative overflow-hidden bg-white">
         <div className="max-w-6xl mx-auto w-full">
           <motion.h2 
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true, amount: 0.5 }}
-            className="font-heading text-4xl md:text-5xl font-bold mb-16 text-center md:text-left"
+            className="font-heading text-4xl md:text-5xl font-bold mb-12 text-center md:text-left"
           >
             What you'll master
           </motion.h2>
@@ -191,15 +191,31 @@ export default function CourseDetailPage({ params }: { params: Promise<{ id: str
                 key={idx}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: idx * 0.1 }}
-                viewport={{ once: true, amount: 0.2 }}
-                className="bg-bg-soft rounded-2xl p-8 border border-border hover:border-primary/30 hover:shadow-lg transition-all duration-300 group"
+                transition={{ duration: 0.4, delay: (idx % 3) * 0.1 }}
+                viewport={{ once: true, amount: 0.1 }}
+                className="relative bg-bg-soft/60 rounded-2xl p-8 border border-border hover:border-primary/40 hover:bg-white hover:shadow-xl transition-all duration-300 group overflow-hidden"
               >
-                <div className={`w-12 h-12 rounded-full bg-gradient-to-br ${course.color} text-white flex items-center justify-center font-bold text-lg mb-6 shadow-md transform group-hover:scale-110 transition-transform`}>
-                  {idx + 1}
+                {/* Decorative background glow on hover */}
+                <div className={`absolute -top-10 -right-10 w-32 h-32 rounded-full bg-gradient-to-br ${course.color} opacity-0 group-hover:opacity-10 blur-2xl transition-opacity duration-500`} />
+                
+                <div className="flex items-start justify-between mb-5">
+                  <div className={`w-12 h-12 rounded-full bg-gradient-to-br ${course.color} text-white flex items-center justify-center font-bold text-lg shadow-md transform group-hover:scale-110 transition-transform`}>
+                    {idx + 1}
+                  </div>
+                  {/* Small checkmark appears on hover */}
+                  <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-primary">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                  </div>
                 </div>
-                <p className="text-lg font-medium text-text-primary leading-snug">
-                  {highlight}
+                
+                <h3 className="text-lg font-bold text-text-primary mb-3 leading-snug group-hover:text-primary transition-colors duration-300">
+                  {highlight.title}
+                </h3>
+                
+                <p className="text-sm font-medium text-text-secondary leading-relaxed">
+                  {highlight.description}
                 </p>
               </motion.div>
             ))}

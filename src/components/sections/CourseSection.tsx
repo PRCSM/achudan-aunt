@@ -60,9 +60,9 @@ export default function CourseSection() {
                 {/* Syllabus Highlights Preview */}
                 <ul className="text-[11px] text-text-secondary space-y-2 mt-4 border-t border-slate-100 pt-4">
                   {course.highlights.slice(0, 3).map((item, idx) => (
-                    <li key={idx} className="flex items-start gap-1.5 leading-snug">
-                      <span className="text-primary text-[10px] mt-0.5 font-bold">✦</span> 
-                      <span>{item}</span>
+                    <li key={idx} className="flex items-start gap-2">
+                      <span className="text-primary text-xs mt-1 shrink-0">✦</span>
+                      <span className="text-text-secondary text-sm">{item.title}</span>
                     </li>
                   ))}
                 </ul>

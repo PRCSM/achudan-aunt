@@ -15,7 +15,7 @@ import V7CTA from "./V7CTA";
 
 export default function VideosPageClient() {
   return (
-    <main className="h-full w-full overflow-y-auto bg-slate-950">
+    <main className="h-[100dvh] w-full overflow-y-auto bg-slate-950">
       <V1Hero />
       <V2Showcase />
       <V3Presentations />

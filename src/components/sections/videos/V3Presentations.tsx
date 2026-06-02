@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
    ✦ SCENE 3 — VISUAL MATH PRESENTATIONS
    Cinematic presentation panels showcasing
    teaching quality and visual explanations
+   (UI styled matching MC5Formula)
    ============================================ */
 
 const bgFloaters = [
@@ -17,10 +18,10 @@ const bgFloaters = [
 
 const presentations = [
   {
-    id: 1,
+    id: 0,
     emoji: "⚡",
     category: "Speed Calculation",
-    title: "Multiplication Trick Session",
+    title: "Multiplication Trick",
     desc: "Students learn fast multiplication using Vedic cross-multiplication patterns. Watch 3-digit calculations become 2-second mental math.",
     preview: "97 × 98 = ?",
     previewSub: "Using near-100 base method",
@@ -30,10 +31,10 @@ const presentations = [
     levelColor: "#f97316",
   },
   {
-    id: 2,
+    id: 1,
     emoji: "🎯",
     category: "Mental Arithmetic",
-    title: "Speed Calculation Demo",
+    title: "Speed Calculation",
     desc: "See how students solve calculations like 998 × 997 in under 5 seconds using the Vedic base-1000 technique.",
     preview: "998 × 997",
     previewSub: "Base-1000 Vedic technique",
@@ -43,10 +44,10 @@ const presentations = [
     levelColor: "#a78bfa",
   },
   {
-    id: 3,
+    id: 2,
     emoji: "🔮",
     category: "Number Logic",
-    title: "Number Logic Presentation",
+    title: "Number Logic",
     desc: "Understand why formulas work instead of memorizing them. Students discover mathematical patterns through guided visual exploration.",
     preview: "n(n+1)/2",
     previewSub: "Sum of first n numbers — visualized",
@@ -59,44 +60,54 @@ const presentations = [
 
 export default function V3Presentations() {
   const [active, setActive] = useState<number>(0);
+  const [step, setStep] = useState(0);
   const pres = presentations[active];
+
+  const handleSelect = (id: number) => {
+    setActive(id);
+    setStep(0);
+  };
 
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden bg-slate-950 px-5 py-24">
-
-      {/* Background */}
+      {/* Glow */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/25 to-transparent" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-primary/6 rounded-full blur-[140px]" />
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-primary/8 rounded-full blur-[120px]" />
+        <div className="absolute bottom-1/4 right-1/4 w-[300px] h-[300px] bg-amber-400/4 rounded-full blur-[100px]" />
       </div>
 
-      {/* Floating math */}
+      {/* Floating math atmosphere */}
       <div className="absolute inset-0 pointer-events-none select-none overflow-hidden" aria-hidden="true">
         {bgFloaters.map((f, i) => (
           <motion.div
             key={i}
-            className={`absolute text-white font-heading font-bold ${f.size} ${f.blur}`}
+            className={`absolute text-white font-heading font-bold tracking-wide ${f.size} ${f.blur}`}
             style={{ top: f.top, left: f.left, right: f.right }}
             initial={{ opacity: 0.06, y: 0 }}
-            animate={{ y: [0, -16, 0], opacity: [0.06, 0.12, 0.06] }}
-            transition={{ duration: 20 + i * 4, repeat: Infinity, ease: "easeInOut", delay: f.delay }}
+            animate={{ y: [0, -18, 0], opacity: [0.06, 0.12, 0.06] }}
+            transition={{ duration: 22 + i * 3, repeat: Infinity, ease: "easeInOut", delay: f.delay }}
           >
             {f.text}
           </motion.div>
         ))}
       </div>
 
-      <div className="mx-auto w-full max-w-6xl relative z-10">
-
+      <div className="mx-auto w-full max-w-4xl relative z-10">
         {/* Header */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-10">
           <motion.p
             initial={{ opacity: 0, y: 10, filter: "blur(4px)" }}
             whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="uppercase mb-4"
-            style={{ fontSize: "0.72rem", fontWeight: 500, letterSpacing: "0.24em", color: "rgba(255,255,255,0.72)" }}
+            transition={{ duration: 0.5, ease: "easeOut", delay: 0.05 }}
+            className="uppercase mb-[18px]"
+            style={{
+              fontSize: "0.72rem",
+              fontWeight: 500,
+              letterSpacing: "0.24em",
+              color: "rgba(255, 255, 255, 0.72)",
+            }}
           >
             ✦ Visual Math Presentations
           </motion.p>
@@ -106,166 +117,149 @@ export default function V3Presentations() {
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
             className="font-heading font-bold text-[clamp(1.8rem,4vw,3rem)] tracking-[-0.03em]"
-            style={{ color: "rgba(255,255,255,0.96)" }}
+            style={{
+              color: "rgba(255, 255, 255, 0.96)",
+              textShadow: "0 0 12px rgba(255, 255, 255, 0.05), 0 0 30px rgba(249, 115, 22, 0.06)",
+            }}
           >
-            Teaching quality you can{" "}
-            <span style={{ color: "#f97316" }}>see and feel</span>
+            Teaching quality you can <span style={{ color: "#f97316" }}>see and feel</span>
           </motion.h2>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.4fr] gap-8 items-center">
-
-          {/* Left — Session Selector */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="space-y-4"
-          >
-            {presentations.map((p, i) => (
-              <motion.button
-                key={p.id}
-                onClick={() => setActive(i)}
-                whileHover={{ x: 4 }}
-                transition={{ type: "spring", stiffness: 300 }}
-                className="w-full text-left rounded-2xl p-5 transition-all duration-300 relative overflow-hidden"
-                style={{
-                  background: active === i
-                    ? "linear-gradient(135deg, rgba(249,115,22,0.10), rgba(249,115,22,0.04))"
-                    : "rgba(255,255,255,0.03)",
-                  border: `1px solid ${active === i ? "rgba(249,115,22,0.35)" : "rgba(255,255,255,0.07)"}`,
-                  boxShadow: active === i ? "0 8px 30px rgba(249,115,22,0.10)" : "none",
-                }}
-              >
-                <div className="flex items-center gap-4">
-                  <span className="text-2xl flex-shrink-0">{p.emoji}</span>
-                  <div className="min-w-0">
-                    <p
-                      className="text-[10px] uppercase tracking-[0.18em] mb-0.5 font-semibold"
-                      style={{ color: active === i ? "#f97316" : "rgba(180,190,220,0.48)" }}
-                    >
-                      {p.category}
-                    </p>
-                    <p
-                      className="font-heading font-bold text-sm truncate"
-                      style={{ color: active === i ? "rgba(255,255,255,0.96)" : "rgba(255,255,255,0.72)" }}
-                    >
-                      {p.title}
-                    </p>
-                  </div>
-                  <div
-                    className="ml-auto flex-shrink-0 w-2 h-2 rounded-full transition-all duration-300"
-                    style={{ background: active === i ? "#f97316" : "rgba(255,255,255,0.15)" }}
-                  />
-                </div>
-                {/* Active glow bar */}
-                {active === i && (
-                  <motion.div
-                    layoutId="pres-bar"
-                    className="absolute inset-y-0 left-0 w-[3px] bg-primary rounded-r"
-                  />
-                )}
-              </motion.button>
-            ))}
-          </motion.div>
-
-          {/* Right — Active Presentation Display */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-          >
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={active}
-                initial={{ opacity: 0, y: 20, filter: "blur(4px)" }}
-                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                exit={{ opacity: 0, y: -12, filter: "blur(4px)" }}
-                transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
-                className="rounded-3xl overflow-hidden"
-                style={{
-                  border: "1px solid rgba(255,255,255,0.08)",
-                  boxShadow: `0 20px 60px rgba(0,0,0,0.35), inset 0 0 60px rgba(249,115,22,0.03)`,
-                }}
-              >
-                {/* Presentation "screen" */}
-                <div
-                  className="relative p-8 md:p-10 text-center"
-                  style={{
-                    background: "linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02))",
-                    borderBottom: "1px solid rgba(255,255,255,0.06)",
-                  }}
-                >
-                  {/* Spotlight */}
-                  <div
-                    className="absolute inset-0 pointer-events-none"
-                    style={{ background: "radial-gradient(circle at 50% 40%, rgba(249,115,22,0.07) 0%, transparent 65%)" }}
-                  />
-
-                  <div className="relative z-10">
-                    <p
-                      className="text-[10px] uppercase tracking-[0.2em] mb-4 font-semibold"
-                      style={{ color: pres.levelColor }}
-                    >
-                      {pres.level} Level — {pres.time}
-                    </p>
-                    <motion.p
-                      key={pres.preview}
-                      initial={{ scale: 0.85, opacity: 0 }}
-                      animate={{ scale: 1, opacity: 1 }}
-                      transition={{ type: "spring", stiffness: 250, damping: 20 }}
-                      className="font-heading font-extrabold text-[clamp(2.5rem,6vw,4.5rem)] leading-none mb-3"
-                      style={{ color: pres.levelColor, textShadow: `0 0 40px ${pres.levelColor}60` }}
-                    >
-                      {pres.preview}
-                    </motion.p>
-                    <p className="text-sm" style={{ color: "rgba(180,190,220,0.48)" }}>{pres.previewSub}</p>
-                  </div>
-                </div>
-
-                {/* Details */}
-                <div className="p-6 md:p-8" style={{ background: "rgba(0,0,0,0.2)" }}>
-                  <h3
-                    className="font-heading font-bold text-xl mb-2"
-                    style={{ color: "rgba(255,255,255,0.96)" }}
-                  >
-                    {pres.title}
-                  </h3>
-                  <p className="text-sm mb-6" style={{ color: "rgba(255,255,255,0.68)", lineHeight: 1.7 }}>
-                    {pres.desc}
-                  </p>
-
-                  {/* Step breakdown */}
-                  <div className="space-y-2.5">
-                    {pres.steps.map((step, idx) => (
-                      <motion.div
-                        key={idx}
-                        initial={{ opacity: 0, x: -12 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: idx * 0.08 }}
-                        className="flex items-center gap-3"
-                      >
-                        <span
-                          className="w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold flex-shrink-0"
-                          style={{ background: `${pres.levelColor}20`, color: pres.levelColor }}
-                        >
-                          {idx + 1}
-                        </span>
-                        <span className="text-sm font-mono" style={{ color: "rgba(255,255,255,0.78)" }}>
-                          {step}
-                        </span>
-                      </motion.div>
-                    ))}
-                  </div>
-                </div>
-              </motion.div>
-            </AnimatePresence>
-          </motion.div>
-
+        {/* Presentation selector */}
+        <div className="flex flex-wrap justify-center gap-4 mb-8">
+          {presentations.map((p, i) => (
+            <motion.button
+              key={p.id}
+              onClick={() => handleSelect(i)}
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.96 }}
+              className={`px-6 py-2.5 rounded-full font-heading font-bold text-sm transition-all duration-300 flex items-center gap-2 ${
+                active === i
+                  ? "bg-primary text-white shadow-lg shadow-primary/30"
+                  : "bg-white/5 border border-white/10 hover:border-primary/30"
+              }`}
+              style={{
+                color: active === i ? "#fff" : "rgba(255,255,255,0.78)"
+              }}
+            >
+              <span>{p.emoji}</span>
+              {p.title}
+            </motion.button>
+          ))}
         </div>
+
+        {/* Active Presentation Info */}
+        <div className="text-center mb-8 max-w-2xl mx-auto">
+          <motion.p
+            key={`desc-${active}`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="text-sm md:text-base mb-3"
+            style={{ color: "rgba(255, 255, 255, 0.8)", lineHeight: 1.7 }}
+          >
+            {pres.desc}
+          </motion.p>
+          <div className="flex items-center justify-center gap-3">
+            <span className="text-[10px] uppercase tracking-widest font-bold" style={{ color: pres.levelColor }}>
+              {pres.category} • {pres.level} • {pres.time}
+            </span>
+          </div>
+        </div>
+
+        {/* Main morphing display */}
+        <div
+          className="rounded-3xl p-8 md:p-12 text-center mb-8 relative overflow-hidden min-h-[260px] flex flex-col items-center justify-center"
+          style={{
+            border: "1px solid rgba(255,255,255,0.08)",
+            background: "linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02))",
+            boxShadow: "0 10px 40px rgba(0,0,0,0.28), inset 0 0 60px rgba(249,115,22,0.04)",
+          }}
+        >
+          {/* Spotlight radial behind formula */}
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{ background: `radial-gradient(circle at center, ${pres.levelColor}15 0%, transparent 65%)` }}
+          />
+          {/* Animated step progress line */}
+          <div className="absolute top-0 left-0 right-0 h-0.5 bg-slate-800">
+            <motion.div
+              className="h-full"
+              style={{ background: `linear-gradient(90deg, ${pres.levelColor}, #f97316)` }}
+              animate={{ width: `${((step + 1) / pres.steps.length) * 100}%` }}
+              transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
+            />
+          </div>
+
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={`${active}-${step}`}
+              initial={{ opacity: 0, y: 24, scale: 0.95, filter: "blur(4px)" }}
+              animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
+              exit={{ opacity: 0, y: -24, scale: 0.95, filter: "blur(4px)" }}
+              transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
+              className="text-center w-full"
+            >
+              <p className="text-xs uppercase tracking-widest mb-4 font-semibold" style={{ color: "rgba(255,255,255,0.5)" }}>
+                Step {step + 1} / {pres.steps.length} — {pres.preview}
+              </p>
+              
+              <p 
+                className="font-heading font-extrabold text-[clamp(1.5rem,4vw,3.5rem)] leading-tight mb-4 mx-auto max-w-2xl"
+                style={{ color: "rgba(255,255,255,0.96)" }}
+              >
+                {pres.steps[step]}
+              </p>
+              
+              <p className="text-sm font-medium" style={{ color: pres.levelColor }}>
+                {pres.previewSub}
+              </p>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        {/* Step dots */}
+        <div className="flex justify-center gap-2.5 mb-8">
+          {pres.steps.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setStep(i)}
+              className={`rounded-full transition-all duration-300 ${
+                i === step ? "w-8 h-2" : i < step ? "w-2 h-2 opacity-40" : "w-2 h-2 bg-slate-700"
+              }`}
+              style={{ background: i <= step ? pres.levelColor : undefined }}
+            />
+          ))}
+        </div>
+
+        {/* Navigation */}
+        <div className="flex justify-center gap-4">
+          <motion.button
+            whileHover={{ scale: 1.04 }}
+            whileTap={{ scale: 0.96 }}
+            onClick={() => setStep((s) => Math.max(0, s - 1))}
+            disabled={step === 0}
+            className="px-6 py-2.5 rounded-xl bg-white/5 text-slate-300 text-sm font-semibold border border-white/8 disabled:opacity-25 hover:bg-white/8 transition-colors"
+          >
+            ← Previous
+          </motion.button>
+          <motion.button
+            whileHover={{ scale: 1.04 }}
+            whileTap={{ scale: 0.96 }}
+            onClick={() => setStep((s) => Math.min(pres.steps.length - 1, s + 1))}
+            disabled={step === pres.steps.length - 1}
+            className="px-6 py-2.5 rounded-xl text-white text-sm font-bold disabled:opacity-30 transition-colors shadow-md"
+            style={{ 
+              background: step === pres.steps.length - 1 ? "rgba(255,255,255,0.1)" : pres.levelColor,
+              boxShadow: step === pres.steps.length - 1 ? "none" : `0 4px 14px ${pres.levelColor}40`
+            }}
+          >
+            Next Step →
+          </motion.button>
+        </div>
+
       </div>
     </section>
   );
 }
+

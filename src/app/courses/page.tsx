@@ -24,7 +24,7 @@ export default function CoursesPage() {
   };
 
   return (
-    <main className="h-full w-full overflow-y-auto bg-white">
+    <main className="h-[100dvh] w-full overflow-y-auto bg-white">
       {/* --- HERO BANNER --- */}
       <section className="bg-bg-soft pt-32 pb-20 px-5">
         <div className="max-w-[1200px] mx-auto text-center">
@@ -120,7 +120,7 @@ export default function CoursesPage() {
                                 {course.highlights.map((highlight, idx) => (
                                   <li key={idx} className="flex items-start gap-3">
                                     <span className="text-primary font-bold mt-0.5">✓</span>
-                                    <span className="text-sm text-text-secondary leading-tight">{highlight}</span>
+                                    <span className="text-sm text-text-secondary leading-tight">{highlight.title}</span>
                                   </li>
                                 ))}
                               </ul>
@@ -215,7 +215,7 @@ export default function CoursesPage() {
                                 {course.highlights.map((highlight, idx) => (
                                   <li key={idx} className="flex items-start gap-3">
                                     <span className="text-primary font-bold mt-0.5">✓</span>
-                                    <span className="text-sm text-text-secondary leading-tight">{highlight}</span>
+                                    <span className="text-sm text-text-secondary leading-tight">{highlight.title}</span>
                                   </li>
                                 ))}
                               </ul>
