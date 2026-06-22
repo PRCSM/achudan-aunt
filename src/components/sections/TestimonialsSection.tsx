@@ -88,14 +88,14 @@ export default function TestimonialsSection() {
       id="testimonials"
       title={<>What <span className="text-primary">Students</span> Say!</>}
       subtitle="Real stories from families who've experienced the VedaGanitham difference."
-      className="relative overflow-hidden bg-white scroll-mt-20 snap-start min-h-screen w-full flex items-center justify-center"
+      className="relative overflow-hidden bg-bg-main scroll-mt-20 snap-start min-h-screen w-full flex items-center justify-center"
     >
       {/* ✦ Floating Review Snippets Background ✦ */}
       <div className="absolute inset-0 z-0 pointer-events-none select-none overflow-hidden" aria-hidden="true">
         {driftingSnippets.map((snippet, idx) => (
           <motion.div
             key={idx}
-            className="absolute bg-primary-light/40 border border-primary/5 text-primary/40 font-heading text-xs md:text-sm font-semibold py-1.5 px-3.5 rounded-full select-none"
+            className="absolute bg-bg-main/40 border border-primary/20 text-primary/60 font-heading text-xs md:text-sm font-semibold py-1.5 px-3.5 rounded-full select-none"
             style={{ 
               top: snippet.top, 
               left: snippet.left, 
@@ -134,7 +134,7 @@ export default function TestimonialsSection() {
               exit={{ opacity: 0, scale: 0.98 }}
               transition={{ duration: 0.3 }}
             >
-              <Card hoverable={false} padding="lg" className="border border-border/80 shadow-lg text-center bg-white/70 backdrop-blur-sm min-h-[300px] flex flex-col justify-between">
+              <Card hoverable={false} padding="lg" className="border border-border/80 shadow-lg text-center bg-white/5 backdrop-blur-sm min-h-[300px] flex flex-col justify-between">
                 <div>
                   {/* Rating Stars */}
                   <div className="flex justify-center gap-1 mb-6">
@@ -176,7 +176,7 @@ export default function TestimonialsSection() {
           <div className="flex justify-center items-center gap-6 mt-8">
             <button
               onClick={prev}
-              className="w-11 h-11 rounded-full border border-border bg-white flex items-center justify-center text-text-secondary hover:border-primary hover:text-primary hover:shadow-md transition-all duration-200 cursor-pointer"
+              className="w-11 h-11 rounded-full border border-border bg-white/10 flex items-center justify-center text-text-secondary hover:border-primary hover:text-primary hover:shadow-md transition-all duration-200 cursor-pointer"
               aria-label="Previous testimonial"
             >
               ←
@@ -198,7 +198,7 @@ export default function TestimonialsSection() {
 
             <button
               onClick={next}
-              className="w-11 h-11 rounded-full border border-border bg-white flex items-center justify-center text-text-secondary hover:border-primary hover:text-primary hover:shadow-md transition-all duration-200 cursor-pointer"
+              className="w-11 h-11 rounded-full border border-border bg-white/10 flex items-center justify-center text-text-secondary hover:border-primary hover:text-primary hover:shadow-md transition-all duration-200 cursor-pointer"
               aria-label="Next testimonial"
             >
               →

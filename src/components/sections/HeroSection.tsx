@@ -100,13 +100,13 @@ export default function HeroSection() {
   const founderWords = founderText.split(" ");
 
   return (
-    <section className="relative min-h-screen snap-start flex items-center pt-20 pb-10 overflow-hidden bg-white">
+    <section className="relative min-h-screen snap-start flex items-center pt-20 pb-10 overflow-hidden bg-bg-main">
 
       {/* ✦ Radial Atmospheric Glow ✦ */}
       <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
-        <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[120px]" />
-        <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-accent/8 rounded-full blur-[100px]" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[300px] bg-primary-light/30 rounded-full blur-[80px]" />
+        <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-accent/8 rounded-full blur-[120px]" />
+        <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-primary/8 rounded-full blur-[100px]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[300px] bg-primary-light/10 rounded-full blur-[80px]" />
       </div>
 
       {/* ✦ Floating Mathematical Universe Background ✦ */}
@@ -114,7 +114,7 @@ export default function HeroSection() {
         {floatingMath.map((item, idx) => (
           <motion.div
             key={idx}
-            className={`absolute text-text-primary/[0.07] font-heading font-bold tracking-wide select-none ${item.size}`}
+            className={`absolute text-text-primary/10 font-heading font-bold tracking-wide select-none ${item.size}`}
             style={{
               top: item.top,
               left: item.left,
@@ -179,7 +179,7 @@ export default function HeroSection() {
                   stroke="currentColor"
                   strokeWidth="3"
                   fill="none"
-                  className="text-primary/40"
+                  className="text-primary/70"
                   initial={{ pathLength: 0 }}
                   animate={{ pathLength: 1 }}
                   transition={{ delay: 1.2, duration: 0.8, ease: "easeOut" }}
@@ -283,7 +283,7 @@ export default function HeroSection() {
           animate="visible"
         >
           {/* Glow behind illustration */}
-          <div className="absolute inset-0 bg-primary/8 rounded-full blur-[60px] scale-75" />
+          <div className="absolute inset-0 bg-accent/10 rounded-full blur-[60px] scale-75" />
           <motion.div
             variants={floatAnimation}
             animate="animate"

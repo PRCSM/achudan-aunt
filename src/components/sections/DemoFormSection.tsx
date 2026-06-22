@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { Section, Button, Input } from "@/components/ui";
 import { fadeInUp, fadeInLeft, fadeInRight } from "@/lib/animations";
 import Footer from "@/components/layout/Footer";
+import { submitDemo } from "@/actions/submitDemo";
 
 /* ============================================
    ✦ DEMO FORM SECTION — Lead capture
@@ -27,16 +28,25 @@ export default function DemoFormSection() {
     e.preventDefault();
     setLoading(true);
 
-    // Simulate API call (backend integration in Phase 6)
-    await new Promise((resolve) => setTimeout(resolve, 1200));
+    try {
+      const formData = new FormData(e.currentTarget);
+      const result = await submitDemo(formData);
+      
+      if (result.success) {
+        setSubmitted(true);
+      } else {
+        alert(result.error || "Failed to submit. Please try again.");
+      }
+    } catch (error) {
+      alert("Something went wrong. Please try again.");
+    }
 
-    setSubmitted(true);
     setLoading(false);
   };
 
   return (
-    <div className="snap-start min-h-screen w-full overflow-y-auto bg-bg-soft">
-      <Section id="demo-form" soft className="w-full flex items-center justify-center relative overflow-hidden bg-bg-soft">
+    <div className="snap-start min-h-screen w-full overflow-y-auto bg-bg-section">
+      <Section id="demo-form" soft className="w-full flex items-center justify-center relative overflow-hidden bg-bg-section">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
         {/* Left — copy */}
         <motion.div
@@ -79,7 +89,7 @@ export default function DemoFormSection() {
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
         >
-          <div className="bg-white rounded-3xl p-8 md:p-10 shadow-lg">
+          <div className="bg-bg-soft rounded-3xl p-8 md:p-10 shadow-lg">
             {submitted ? (
               /* Success state */
               <motion.div
@@ -117,6 +127,7 @@ export default function DemoFormSection() {
                   placeholder="Enter your name"
                   required
                   name="name"
+                  className="!bg-bg-soft"
                 />
 
                 <Input
@@ -124,6 +135,7 @@ export default function DemoFormSection() {
                   placeholder="Your phone number or email"
                   required
                   name="contact"
+                  className="!bg-bg-soft"
                 />
 
                 {/* Course select */}
@@ -138,7 +150,7 @@ export default function DemoFormSection() {
                     id="course"
                     name="course"
                     required
-                    className="w-full px-4 py-3 rounded-xl border border-border bg-white text-text-primary text-base transition-all duration-250 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 appearance-none cursor-pointer"
+                    className="w-full px-4 py-3 rounded-xl border border-border bg-bg-soft text-text-primary text-base transition-all duration-250 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 appearance-none cursor-pointer"
                   >
                     {courseOptions.map((opt) => (
                       <option key={opt.value} value={opt.value}>

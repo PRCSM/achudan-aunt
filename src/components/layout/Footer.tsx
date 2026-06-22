@@ -34,7 +34,7 @@ export default function Footer() {
       <div className="w-full h-1 bg-gradient-to-r from-[#7B2D00] via-[#B8860B] to-[#7B2D00]" />
 
       {/* Tier 2: White Main Section */}
-      <div className="bg-white text-text-primary">
+      <div className="bg-white text-slate-900">
         <div className="mx-auto w-full max-w-[1200px] px-5 py-16 md:py-20">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-8">
 
@@ -73,7 +73,7 @@ export default function Footer() {
               </div>
 
               <h4 className="font-bold text-base mb-3 text-[#2D1A00]">About Us</h4>
-              <p className="text-text-secondary text-sm leading-relaxed max-w-[380px]">
+              <p className="text-slate-600 text-sm leading-relaxed max-w-[380px]">
                 {SITE_CONFIG.description}
               </p>
             </div>
@@ -87,7 +87,7 @@ export default function Footer() {
                     <span className="text-[#B8860B] text-xs">✦</span>
                     <Link
                       href={link.href}
-                      className="text-text-secondary hover:text-primary text-sm font-medium transition-colors duration-200"
+                      className="text-slate-600 hover:text-primary text-sm font-medium transition-colors duration-200"
                     >
                       {link.label}
                     </Link>
@@ -105,7 +105,7 @@ export default function Footer() {
                     <span className="text-[#B8860B] text-xs">✦</span>
                     <Link
                       href={link.href}
-                      className="text-text-secondary hover:text-primary text-sm font-medium transition-colors duration-200"
+                      className="text-slate-600 hover:text-primary text-sm font-medium transition-colors duration-200"
                     >
                       {link.label}
                     </Link>
@@ -119,13 +119,13 @@ export default function Footer() {
               <h4 className="font-bold text-base mb-5 text-[#2D1A00]">Contact Us</h4>
 
               <div className="mb-4">
-                <p className="text-xs font-bold mb-1 text-text-muted uppercase tracking-wider">Phone</p>
-                <p className="text-sm text-text-secondary">+{WHATSAPP_CONFIG.number}</p>
+                <p className="text-xs font-bold mb-1 text-slate-500 uppercase tracking-wider">Phone</p>
+                <p className="text-sm text-slate-600">+{WHATSAPP_CONFIG.number}</p>
               </div>
 
               <div className="mb-8">
-                <p className="text-xs font-bold mb-1 text-text-muted uppercase tracking-wider">Email</p>
-                <p className="text-sm text-text-secondary">{SITE_CONFIG.email}</p>
+                <p className="text-xs font-bold mb-1 text-slate-500 uppercase tracking-wider">Email</p>
+                <p className="text-sm text-slate-600">{SITE_CONFIG.email}</p>
               </div>
 
               <h4 className="font-bold text-base mb-4 text-[#2D1A00]">Follow Us</h4>
@@ -144,7 +144,7 @@ export default function Footer() {
                     className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all hover:scale-110 ${
                       active
                         ? "bg-primary text-white shadow-md"
-                        : "bg-white border border-border text-text-secondary hover:border-primary hover:text-primary"
+                        : "bg-white border border-border text-slate-600 hover:border-primary hover:text-primary"
                     }`}
                   >
                     {icon}

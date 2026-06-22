@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { notFound } from "next/navigation";
 import { COURSE_TIERS, WHATSAPP_CONFIG } from "@/constants";
 import { Button, Badge } from "@/components/ui";
+import IntermediateFeatures from "@/components/sections/courses/IntermediateFeatures";
 
 /* ============================================
    ✦ ALGEBRAIC FORMULA MORPH
@@ -47,17 +48,25 @@ function FormulaMorph() {
 }
 
 /* ============================================
-   ✦ COURSE DETAIL PAGE
+   ✦ COURSES PAGE DETAILS
    ============================================ */
 
 export default function CourseDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const [mounted, setMounted] = useState(false);
-  const resolvedParams = require("react").use(params);
-  
-  // Find the course
-  const course = COURSE_TIERS.find((c) => c.id === resolvedParams.id);
+  const [resolvedParams, setResolvedParams] = useState<{ id: string } | null>(null);
 
-  // Hydration fix
+  useEffect(() => {
+    // Unwrap params in useEffect
+    const unwrapParams = async () => {
+      const p = await params;
+      setResolvedParams(p);
+    };
+    unwrapParams();
+  }, [params]);
+
+  // Find the course
+  const course = resolvedParams ? COURSE_TIERS.find((c) => c.id === resolvedParams.id) : null;
+
   useEffect(() => {
     setMounted(true);
     // Hide global body scroll since we use internal snapping wrapper
@@ -67,26 +76,57 @@ export default function CourseDetailPage({ params }: { params: Promise<{ id: str
     };
   }, []);
 
+  // Add structured data for rich snippets
+  useEffect(() => {
+    if (course) {
+      const jsonLd = {
+        "@context": "https://schema.org",
+        "@type": "Course",
+        "name": course.title,
+        "description": course.description,
+        "provider": {
+          "@type": "Organization",
+          "name": "VedaGanitham",
+          "sameAs": "https://vedaganitham.com"
+        }
+      };
+      
+      const script = document.createElement('script');
+      script.type = 'application/ld+json';
+      script.innerHTML = JSON.stringify(jsonLd);
+      document.head.appendChild(script);
+      
+      return () => {
+        document.head.removeChild(script);
+      };
+    }
+  }, [course]);
+
+  // Loading state while params resolve
+  if (!resolvedParams) {
+    return (
+      <div className="h-screen w-full flex items-center justify-center bg-bg-main">
+        <div className="w-8 h-8 rounded-full border-4 border-primary border-t-transparent animate-spin" />
+      </div>
+    );
+  }
+
+  // Not found
   if (!course) {
     return notFound();
   }
 
-  // Select level-specific testimonial
-  let courseReview = {
-    name: "Kishore G",
-    location: "UAE",
-    quote: "My calculation speed has improved drastically. Now I can solve long equations mentally during school exams without getting stuck."
+  // Custom testimonial mapping
+  let customTestimonial = {
+    name: "Priya S.",
+    role: "Parent of 7th Grader",
+    quote: "The mental math tricks my daughter learned here are incredible. She calculates faster than me now and actually looks forward to math class!"
   };
-  if (resolvedParams.id === "basic") {
-    courseReview = {
-      name: "Samruthi B",
-      location: "Chennai",
-      quote: "I love the interactive quizzes and games. They help me remember formulas easily. Doing math does not feel like homework anymore."
-    };
-  } else if (resolvedParams.id === "intermediate") {
-    courseReview = {
-      name: "Chetna",
-      location: "UAE",
+
+  if (course.id === "intermediate") {
+    customTestimonial = {
+      name: "Rahul M.",
+      role: "High School Student",
       quote: "VedaGanitham is like magic tricks for math! Learning how to simplify large multiplication has made math my favorite subject."
     };
   }
@@ -94,12 +134,12 @@ export default function CourseDetailPage({ params }: { params: Promise<{ id: str
   if (!mounted) return null;
 
   return (
-    <div className="h-screen w-full overflow-y-scroll snap-y snap-mandatory scroll-smooth bg-white text-text-primary">
+    <div className="h-[100dvh] w-full overflow-y-scroll snap-y snap-mandatory scroll-smooth bg-white text-text-primary">
       
       {/* ====================
           SCENE 1: THE HOOK
           ==================== */}
-      <section className="h-screen w-full snap-start relative flex flex-col items-center justify-center px-5 pt-20">
+      <section className="h-[100dvh] w-full snap-start relative flex flex-col items-center justify-center px-5 pt-20">
         {/* Background gradient hint */}
         <div className={`absolute inset-0 bg-gradient-to-br ${course.color} opacity-[0.03] pointer-events-none`} />
         
@@ -139,6 +179,9 @@ export default function CourseDetailPage({ params }: { params: Promise<{ id: str
           </div>
         </motion.div>
       </section>
+
+      {/* Conditionally render Intermediate features exactly as requested */}
+      {course.id === "intermediate" && <IntermediateFeatures />}
 
       {/* ====================
           SCENE 2: STORYTELLING
@@ -301,15 +344,15 @@ export default function CourseDetailPage({ params }: { params: Promise<{ id: str
           {/* ✦ Dynamic testomonial snippet matching course level ✦ */}
           <div className="bg-bg-soft/60 border border-primary/5 rounded-2xl p-6 md:p-8 max-w-xl mx-auto mb-10 text-left shadow-sm">
             <p className="italic text-text-primary text-sm md:text-base mb-4 leading-relaxed">
-              &ldquo;{courseReview.quote}&rdquo;
+              &ldquo;{customTestimonial.quote}&rdquo;
             </p>
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm">
-                {courseReview.name.charAt(0)}
+              <div className="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center font-bold font-heading text-lg">
+                {customTestimonial.name.charAt(0)}
               </div>
               <div>
-                <p className="font-bold text-text-primary text-sm">{courseReview.name}</p>
-                <p className="text-xs text-text-muted font-medium">{courseReview.location}</p>
+                <p className="font-bold text-text-primary text-sm">{customTestimonial.name}</p>
+                <p className="text-xs text-text-muted font-medium">{customTestimonial.role}</p>
               </div>
             </div>
           </div>

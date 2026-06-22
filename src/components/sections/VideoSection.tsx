@@ -14,21 +14,21 @@ import Image from "next/image";
 const videos = [
   {
     id: "main",
-    title: "Introduction to Vedic Mathematics",
-    youtubeId: "dQw4w9WgXcQ", // placeholder — replace with actual
+    title: "How does tables work?",
+    src: "/videos/tables.mp4",
     level: "Beginner",
   },
   {
     id: "preview-1",
-    title: "Speed Multiplication Tricks",
-    youtubeId: "dQw4w9WgXcQ",
+    title: "Multiplication of 9's",
+    src: "/videos/board sum.mp4",
     level: "Intermediate",
   },
   {
     id: "preview-2",
-    title: "Mental Math Techniques",
-    youtubeId: "dQw4w9WgXcQ",
-    level: "Advanced",
+    title: "Distance covered by train",
+    src: "/videos/train vid.mp4",
+    level: "Application",
   },
 ];
 
@@ -40,7 +40,7 @@ export default function VideoSection() {
       id="videos"
       title="Watch & Learn"
       subtitle="Preview our teaching style with free demo videos. See how Vedic Mathematics transforms calculations."
-      className="scroll-mt-20 snap-start min-h-screen w-full flex items-center justify-center relative overflow-hidden bg-white"
+      className="scroll-mt-20 snap-start min-h-screen w-full flex items-center justify-center relative overflow-hidden bg-bg-main"
     >
       <motion.div
         className="grid grid-cols-1 lg:grid-cols-3 gap-6"
@@ -51,26 +51,25 @@ export default function VideoSection() {
       >
         {/* Main video — spans 2 cols on desktop */}
         <motion.div variants={fadeInLeft} className="lg:col-span-2">
-          <div className="relative aspect-video rounded-3xl overflow-hidden bg-text-primary/5 shadow-lg group cursor-pointer border border-border hover:border-primary/20 transition-all duration-300">
+          <div className="relative aspect-video rounded-3xl overflow-hidden bg-text-primary/5 shadow-lg group border border-border hover:border-primary/20 transition-all duration-300">
             {playingId === videos[0].id ? (
-              <iframe
-                src={`https://www.youtube.com/embed/${videos[0].youtubeId}?autoplay=1`}
-                title={videos[0].title}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                className="absolute inset-0 w-full h-full border-none"
+              <video
+                src={videos[0].src}
+                controls
+                autoPlay
+                className="absolute inset-0 w-full h-full bg-black"
               />
             ) : (
               <div
-                className="absolute inset-0 w-full h-full"
+                className="absolute inset-0 w-full h-full cursor-pointer"
                 onClick={() => setPlayingId(videos[0].id)}
               >
-                <Image
-                  src={`https://img.youtube.com/vi/${videos[0].youtubeId}/maxresdefault.jpg`}
-                  alt={videos[0].title}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 66vw"
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                <video
+                  src={`${videos[0].src}#t=0.5`}
+                  muted
+                  playsInline
+                  preload="metadata"
+                  className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-black/25 group-hover:bg-black/35 transition-colors flex items-center justify-center">
                   <motion.div
@@ -100,26 +99,25 @@ export default function VideoSection() {
         <div className="flex flex-col gap-6">
           {videos.slice(1).map((video) => (
             <motion.div key={video.id} variants={fadeInRight} className="flex flex-col">
-              <div className="relative aspect-video rounded-2xl overflow-hidden bg-text-primary/5 shadow-md group cursor-pointer border border-border hover:border-primary/20 transition-all duration-300">
+              <div className="relative aspect-video rounded-2xl overflow-hidden bg-text-primary/5 shadow-md group border border-border hover:border-primary/20 transition-all duration-300">
                 {playingId === video.id ? (
-                  <iframe
-                    src={`https://www.youtube.com/embed/${video.youtubeId}?autoplay=1`}
-                    title={video.title}
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    className="absolute inset-0 w-full h-full border-none"
+                  <video
+                    src={video.src}
+                    controls
+                    autoPlay
+                    className="absolute inset-0 w-full h-full bg-black"
                   />
                 ) : (
                   <div
-                    className="absolute inset-0 w-full h-full"
+                    className="absolute inset-0 w-full h-full cursor-pointer"
                     onClick={() => setPlayingId(video.id)}
                   >
-                    <Image
-                      src={`https://img.youtube.com/vi/${video.youtubeId}/maxresdefault.jpg`}
-                      alt={video.title}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 33vw"
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    <video
+                      src={`${video.src}#t=0.5`}
+                      muted
+                      playsInline
+                      preload="metadata"
+                      className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors flex items-center justify-center">
                       <motion.div
@@ -164,8 +162,8 @@ export default function VideoSection() {
             whileTap={{ scale: 0.97 }}
             className="inline-flex items-center gap-2 font-heading font-bold text-sm px-6 py-3 rounded-xl text-white transition-all duration-200"
             style={{
-              background: "linear-gradient(135deg, #FF6B2B, #fb923c)",
-              boxShadow: "0 8px 24px rgba(249,115,22,0.30)",
+              background: "linear-gradient(135deg, #5b2c83, #7a3bad)",
+              boxShadow: "0 8px 24px rgba(91,44,131,0.30)",
             }}
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="white">

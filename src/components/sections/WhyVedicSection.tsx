@@ -12,7 +12,7 @@ import { Section, Card, Badge } from "@/components/ui";
 const vedicSteps = [
   { label: "Problem", value: "45²", color: "text-text-primary" },
   { label: "Split first digit", value: "4 × (4+1) = 20", color: "text-primary" },
-  { label: "Append 25 (always!)", value: "20 ‧ 25", color: "text-amber-500" },
+  { label: "Append 25 (always!)", value: "20 ‧ 25", color: "text-primary" },
   { label: "Answer ✓", value: "2025", color: "text-green-500" },
 ];
 
@@ -32,7 +32,7 @@ export default function WhyVedicSection() {
       id="why-vedic"
       title={<>Why <span className="text-primary">Vedic Math?</span></>}
       subtitle="See for yourself — the same problem, two completely different journeys."
-      className="bg-white scroll-mt-20 snap-start min-h-screen w-full flex items-center justify-center relative overflow-hidden"
+      className="scroll-mt-20 snap-start min-h-screen w-full flex items-center justify-center relative overflow-hidden"
     >
       {/* Background radial glow */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
@@ -53,31 +53,31 @@ export default function WhyVedicSection() {
         >
           <Card
             padding="lg"
-            className="border border-slate-200 relative bg-slate-50/80 min-h-[360px] flex flex-col justify-between overflow-hidden"
+            className="border border-border/50 relative min-h-[360px] flex flex-col justify-between overflow-hidden"
           >
             <div className="absolute top-4 right-4">
-              <Badge variant="default" className="!bg-slate-200 !text-slate-500 font-bold uppercase tracking-wider text-[10px]">
+              <Badge variant="default" className="!bg-white/10 !text-white/60 font-bold uppercase tracking-wider text-[10px]">
                 ✍️ Traditional
               </Badge>
             </div>
 
             <div>
-              <h3 className="font-heading font-bold text-xl text-text-primary mb-1">
+              <h3 className="font-heading font-bold text-xl !text-black mb-1">
                 Standard School Method
               </h3>
-              <p className="text-text-muted text-xs mb-6">
+              <p className="!text-black/60 text-xs mb-6">
                 45 × 45 — pen &amp; paper approach
               </p>
 
               {/* Long-form paper calculation */}
-              <div className="font-mono text-sm bg-white border border-slate-200 rounded-2xl p-5 max-w-[240px] mx-auto shadow-sm">
-                <div className="text-right border-b border-slate-200 pb-2 mb-2 text-slate-700">
+              <div className="font-mono text-sm bg-bg-section border border-border/50 rounded-2xl p-5 max-w-[240px] mx-auto shadow-sm">
+                <div className="text-right border-b border-border/50 pb-2 mb-2 text-text-primary">
                   <div className="tracking-widest">    4 5</div>
                   <div className="tracking-widest">  × 4 5</div>
                 </div>
-                <div className="text-right text-slate-400 tracking-widest">    2 2 5</div>
-                <div className="text-right text-slate-400 tracking-widest border-b border-slate-200 pb-2 mb-2">+1 8 0 0</div>
-                <div className="text-right font-bold text-slate-700 tracking-widest">  2 0 2 5</div>
+                <div className="text-right text-text-secondary tracking-widest">    2 2 5</div>
+                <div className="text-right text-text-secondary tracking-widest border-b border-border/50 pb-2 mb-2">+1 8 0 0</div>
+                <div className="text-right font-bold text-text-primary tracking-widest">  2 0 2 5</div>
               </div>
             </div>
 
@@ -112,15 +112,15 @@ export default function WhyVedicSection() {
             </div>
 
             <div>
-              <h3 className="font-heading font-bold text-xl text-primary mb-1">
+              <h3 className="font-heading font-bold text-xl !text-primary mb-1">
                 One-Line Mental Formula
               </h3>
-              <p className="text-text-muted text-xs mb-6">
+              <p className="!text-black/60 text-xs mb-6">
                 Watch how Vedic math solves it step by step
               </p>
 
-              {/* Live animated step display */}
-              <div className="bg-white border border-primary/10 rounded-2xl p-5 min-h-[120px] flex flex-col items-center justify-center shadow-inner relative overflow-hidden">
+              {/* Live Morphing Display */}
+              <div className="bg-bg-section border border-primary/20 rounded-2xl p-5 min-h-[120px] flex flex-col items-center justify-center shadow-inner relative overflow-hidden">
                 {/* Step progression dots */}
                 <div className="flex gap-1.5 mb-4">
                   {vedicSteps.map((_, i) => (
@@ -131,7 +131,7 @@ export default function WhyVedicSection() {
                           ? "w-6 bg-primary"
                           : i < step
                           ? "w-3 bg-primary/30"
-                          : "w-3 bg-slate-200"
+                          : "w-3 bg-white/10"
                       }`}
                     />
                   ))}
@@ -176,7 +176,7 @@ export default function WhyVedicSection() {
                     >
                       {i < step ? "✓" : i + 1}
                     </span>
-                    <span className={i === step ? "font-semibold text-text-primary" : "text-text-muted"}>
+                    <span className={i === step ? "font-semibold !text-black" : "!text-black/50"}>
                       {s.label}
                     </span>
                   </div>

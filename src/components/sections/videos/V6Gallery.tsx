@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 /* ============================================
    ✦ SCENE 6 — FEATURED VIDEO GALLERY
@@ -22,6 +22,7 @@ type VideoCard = {
   gradientFrom: string;
   gradientTo: string;
   mathPreview: string;
+  src?: string; // Optional actual video file
 };
 
 const videoCards: VideoCard[] = [
@@ -37,76 +38,83 @@ const videoCards: VideoCard[] = [
     gradientFrom: "#1a0a00",
     gradientTo: "#2d1200",
     mathPreview: "45² = 2025",
+    src: "/videos/squaring numbers.mp4",
   },
   {
     id: 2,
-    title: "Multiplication Near 100",
+    title: "Number Pattern Recognition with 9's",
     category: "Speed Math",
     categoryColor: "#a78bfa",
     duration: "09:18",
-    desc: "The base-100 Vedic technique that makes 98×97 a 2-second mental calculation.",
+    desc: "A beautiful visual breakdown of massive calculations showing pattern logic without raw calculation.",
     level: "Intermediate",
     emoji: "🧠",
     gradientFrom: "#0d0818",
     gradientTo: "#1a0f2e",
-    mathPreview: "98 × 97 = ?",
+    mathPreview: "3478 × 9999",
+    src: "/videos/patternRecognition.mp4",
   },
   {
     id: 3,
-    title: "The 11-Rule: Multiply by 11",
+    title: "Mastering Multiplication Tables",
     category: "Visual Tricks",
     categoryColor: "#34d399",
     duration: "07:45",
-    desc: "One of the most satisfying Vedic tricks — multiplying any number by 11 in your head instantly.",
+    desc: "Learn to multiply instantly without rote memorization using simple structural patterns.",
     level: "Beginner",
     emoji: "🔮",
     gradientFrom: "#001810",
     gradientTo: "#00291a",
-    mathPreview: "11 × 53 = 583",
+    mathPreview: "8 × 7 = 56",
+    src: "/videos/tables.mp4",
   },
   {
     id: 4,
-    title: "Digital Root & Navashesh",
-    category: "Number Theory",
+    title: "Speed Math on the Train",
+    category: "Real World",
     categoryColor: "#38bdf8",
     duration: "15:02",
-    desc: "Discover how any large number can be instantly reduced to a single digit — and why it matters.",
+    desc: "Watch how mental calculations can be done effortlessly in everyday situations without pen and paper.",
     level: "Intermediate",
     emoji: "🌀",
     gradientFrom: "#000d18",
     gradientTo: "#001828",
-    mathPreview: "999 → 9",
+    mathPreview: "Mental Math",
+    src: "/videos/train vid.mp4",
   },
   {
     id: 5,
-    title: "Student Quiz Tournament Live",
+    title: "Student 5-Minute Quiz Challenge",
     category: "Classroom Session",
     categoryColor: "#fbbf24",
-    duration: "22:15",
-    desc: "Watch a real live quiz session with students competing in Vedic Math speed rounds.",
+    duration: "05:00",
+    desc: "Watch a real 5-minute quiz session testing students in high-speed Vedic Math calculations.",
     level: "All Levels",
     emoji: "🏆",
     gradientFrom: "#180d00",
     gradientTo: "#2a1800",
     mathPreview: "Rapid Fire!",
+    src: "/videos/5 mins quiz.mp4",
   },
   {
     id: 6,
-    title: "Visual Algebra: Seeing the Formula",
+    title: "Visual Algebra: Find the Value of X",
     category: "Visual Learning",
     categoryColor: "#f472b6",
-    duration: "18:30",
-    desc: "Why does (a+b)² = a² + 2ab + b²? Students see it geometrically — no memorization needed.",
+    duration: "04:30",
+    desc: "Solve complex algebraic fractions without cross-multiplying or finding LCM using this powerful shortcut.",
     level: "Advanced",
     emoji: "📐",
     gradientFrom: "#180010",
     gradientTo: "#2a001e",
-    mathPreview: "(a+b)²",
+    mathPreview: "Find X",
+    src: "/videos/simple equations.mp4",
   },
 ];
 
 export default function V6Gallery() {
   const [hovered, setHovered] = useState<number | null>(null);
+  const [playingVideo, setPlayingVideo] = useState<VideoCard | null>(null);
 
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden bg-[#080C14] px-5 py-24">
@@ -198,7 +206,18 @@ export default function V6Gallery() {
                 <div
                   className="relative overflow-hidden h-44 flex items-center justify-center"
                   style={{ background: `linear-gradient(135deg, ${video.gradientFrom}, ${video.gradientTo})` }}
+                  onClick={() => video.src && setPlayingVideo(video)}
                 >
+                  {video.src && (
+                    <video
+                      src={`${video.src}#t=0.5`}
+                      muted
+                      playsInline
+                      preload="metadata"
+                      className="absolute inset-0 w-full h-full object-cover opacity-50 mix-blend-screen transition-transform duration-700 group-hover:scale-105"
+                    />
+                  )}
+
                   {/* Radial glow */}
                   <div
                     className="absolute inset-0 pointer-events-none transition-opacity duration-500"
@@ -213,7 +232,7 @@ export default function V6Gallery() {
                     className="font-heading font-extrabold text-[clamp(1.8rem,4vw,2.5rem)] z-10 relative select-none"
                     style={{
                       color: video.categoryColor,
-                      textShadow: `0 0 30px ${video.categoryColor}60`,
+                      textShadow: `0 0 30px ${video.categoryColor}80, 0 0 10px rgba(0,0,0,0.8)`,
                       letterSpacing: "-0.02em",
                     }}
                     animate={isHovered ? { scale: 1.05 } : { scale: 1 }}
@@ -224,7 +243,7 @@ export default function V6Gallery() {
 
                   {/* Animated play button */}
                   <motion.div
-                    className="absolute inset-0 flex items-center justify-center"
+                    className="absolute inset-0 flex items-center justify-center z-20"
                     initial={false}
                     animate={isHovered ? { opacity: 1 } : { opacity: 0 }}
                     transition={{ duration: 0.25 }}
@@ -232,9 +251,9 @@ export default function V6Gallery() {
                     <div
                       className="w-14 h-14 rounded-full flex items-center justify-center backdrop-blur-sm"
                       style={{
-                        background: "rgba(0,0,0,0.55)",
-                        border: `2px solid ${video.categoryColor}80`,
-                        boxShadow: `0 0 20px ${video.categoryColor}40`,
+                        background: "rgba(0,0,0,0.65)",
+                        border: `2px solid ${video.categoryColor}90`,
+                        boxShadow: `0 0 20px ${video.categoryColor}60`,
                       }}
                     >
                       <svg width="20" height="20" viewBox="0 0 24 24" fill={video.categoryColor}>
@@ -245,19 +264,20 @@ export default function V6Gallery() {
 
                   {/* Duration badge */}
                   <div
-                    className="absolute top-3 right-3 text-xs font-bold px-2 py-0.5 rounded-full"
-                    style={{ background: "rgba(0,0,0,0.65)", color: "rgba(255,255,255,0.85)", backdropFilter: "blur(4px)" }}
+                    className="absolute top-3 right-3 text-xs font-bold px-2 py-0.5 rounded-full z-10"
+                    style={{ background: "rgba(0,0,0,0.75)", color: "rgba(255,255,255,0.9)", backdropFilter: "blur(4px)" }}
                   >
                     {video.duration}
                   </div>
 
                   {/* Level badge */}
                   <div
-                    className="absolute top-3 left-3 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider"
+                    className="absolute top-3 left-3 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider z-10"
                     style={{
-                      background: `${video.categoryColor}20`,
+                      background: `${video.categoryColor}30`,
                       color: video.categoryColor,
-                      border: `1px solid ${video.categoryColor}40`,
+                      border: `1px solid ${video.categoryColor}50`,
+                      backdropFilter: "blur(4px)"
                     }}
                   >
                     {video.level}
@@ -305,6 +325,47 @@ export default function V6Gallery() {
           Full video library available to enrolled students. New sessions added every week. ✦
         </motion.p>
       </div>
+
+      {/* Video Modal */}
+      <AnimatePresence>
+        {playingVideo && playingVideo.src && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-10 bg-black/90 backdrop-blur-sm"
+            onClick={() => setPlayingVideo(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.95, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.95, y: 20 }}
+              transition={{ type: "spring", bounce: 0, duration: 0.4 }}
+              className="relative w-full max-w-5xl aspect-video rounded-2xl overflow-hidden bg-black shadow-2xl"
+              style={{
+                boxShadow: `0 30px 80px rgba(0,0,0,0.8), 0 0 0 1px ${playingVideo.categoryColor}40`,
+              }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                className="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-black/50 text-white hover:bg-white hover:text-black transition-colors"
+                onClick={() => setPlayingVideo(null)}
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              </button>
+              <video
+                src={playingVideo.src}
+                controls
+                autoPlay
+                className="w-full h-full object-contain"
+              />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }

@@ -19,7 +19,7 @@ interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
 }
 
 const baseInputClasses =
-  "w-full px-4 py-3 rounded-xl border border-border bg-white text-text-primary text-base placeholder:text-text-muted transition-all duration-250 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20";
+  "w-full px-4 py-3 rounded-xl border border-border bg-bg-soft text-text-primary text-base placeholder:text-text-muted transition-all duration-250 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 [color-scheme:dark]";
 
 const errorClasses =
   "border-red-400 focus:border-red-500 focus:ring-red-200/40";

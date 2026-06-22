@@ -11,10 +11,10 @@ import { fadeInUp, staggerContainer } from "@/lib/animations";
 
 const courseIcons = ["📐", "🧮", "🎯", "🎓"];
 const courseColors = [
-  "bg-accent text-text-primary", // Yellow
-  "bg-[#A8E6CF] text-text-primary", // Green
-  "bg-primary text-white", // Orange
-  "bg-[#FFB3B3] text-text-primary", // Pink
+  "bg-accent text-text-primary",
+  "bg-primary-light text-primary",
+  "bg-primary text-white",
+  "bg-secondary-light text-primary",
 ];
 
 export default function CourseSection() {
@@ -40,7 +40,7 @@ export default function CourseSection() {
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
             className="h-full"
           >
-            <Card className="h-full flex flex-col justify-between border border-border/80 hover:border-primary/20 hover:shadow-xl transition-shadow duration-300 bg-white" padding="lg">
+            <Card className="h-full flex flex-col justify-between border border-border/80 hover:border-primary/20 hover:shadow-xl transition-shadow duration-300" padding="lg">
               <div>
                 {/* Icon */}
                 <div
@@ -50,10 +50,10 @@ export default function CourseSection() {
                 </div>
 
                 {/* Content */}
-                <h3 className="font-heading text-lg font-bold text-text-primary mb-2">
+                <h3 className="font-heading font-bold text-xl !text-black mb-2 leading-tight">
                   {course.title}
                 </h3>
-                <p className="text-xs text-text-secondary leading-relaxed">
+                <p className="text-xs !text-black/70 leading-relaxed">
                   {course.description}
                 </p>
 
@@ -62,7 +62,7 @@ export default function CourseSection() {
                   {course.highlights.slice(0, 3).map((item, idx) => (
                     <li key={idx} className="flex items-start gap-2">
                       <span className="text-primary text-xs mt-1 shrink-0">✦</span>
-                      <span className="text-text-secondary text-sm">{item.title}</span>
+                      <span className="!text-black/80 text-sm">{item.title}</span>
                     </li>
                   ))}
                 </ul>
@@ -74,7 +74,7 @@ export default function CourseSection() {
                   variant="ghost" 
                   size="sm" 
                   href={`/courses/${course.id}`} 
-                  className="!px-0 text-primary hover:text-primary-hover font-bold flex items-center gap-1 group/btn"
+                  className="!px-0 !text-primary hover:!text-primary-hover font-bold flex items-center gap-1 group/btn"
                 >
                   Learn More <span className="transform group-hover/btn:translate-x-1 transition-transform">&rarr;</span>
                 </Button>
